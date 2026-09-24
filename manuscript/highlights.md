@@ -1,0 +1,5 @@
+- Fixed mean-based slots cause large scheduling regret under tail variability
+- Tail shape, not the mean, drives finite-session delay propagation
+- A single optimized interval recovers nearly all attainable benefit
+- Misspecified service-time families can cost more than no optimization
+- A two-descriptor map says when tail-aware scheduling is justified
