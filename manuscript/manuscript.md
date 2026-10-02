@@ -63,14 +63,14 @@ Bailey [2], with the stochastic core traceable to Lindley [3] and
 early policy comparisons by Soriano [4]; modern reviews include Cayirli
 and Veral [5], Cayirli et al. [6], Gupta and Denton [7], and
 Ahmadi-Javid et al. [8]. Optimal interval design under known stochastic
-service times is well studied [9, 10, 11, 12, 13, 14],
+service times is well studied [9-14],
 as are heuristic rules [15], unpunctuality and
 interruptions [16, 17],
-no-shows and overbooking [18, 19, 20, 21], and service-time
+no-shows and overbooking [18-21], and service-time
 variability [22]. Distributionally robust and conic
-designs hedge against limited distributional information [23, 24, 25, 26],
+designs hedge against limited distributional information [23-26],
 resting on CVaR and robust-optimization machinery
-[27, 28, 29], with general scheduling foundations in Pinedo [30].
+[27-29], with general scheduling foundations in Pinedo [30].
 
 What is less developed is an interpretable mapping from distributional
 shape — and distributional *misspecification* — to the value of scheduling
@@ -109,10 +109,11 @@ of patient $i$, equal to patient $i$'s waiting time $W_i$. Then
 
 $$D_1 = 0,\quad D_{i+1} = \max(0,\, D_i + S_i - x_i),\quad i = 1,\dots,N-1,$$
 
-the finite-horizon Lindley recursion on the lattice of scheduled starts.
+the finite-horizon Lindley recursion on the lattice of scheduled starts [3].
 Physician idle time is $I = \sum_{i=1}^{N-1} \max(0,\, x_i - D_i - S_i)$
 and session overtime is $O = D_N + S_N$, the residual work after the
-scheduled end. The social cost of a session is
+scheduled end. The social cost of a session combines waiting, idle time,
+and overtime, as in established appointment-scheduling formulations [9, 10]:
 
 $$C(\pi) = c_w \sum_i W_i + c_i I + c_o O,$$
 
@@ -129,8 +130,10 @@ Policies evaluated (Table 2) span: fixed mean-based slots; a conservative
 fixed slot (mean plus slack); a quantile-based slot; a class-based rule using
 mixture-component labels where such classes are observable; SAA-optimized
 uniform and nonuniform intervals; a CVaR-penalized tail-aware uniform
-interval; a distributionally robust (DRO) uniform interval hedging across a
-four-family ambiguity set; and the oracle.
+interval [27]; a distributionally robust (DRO) uniform interval
+hedging across a four-family ambiguity set; and the oracle. The DRO policy
+uses the worst-case expected-cost principle studied in limited-information
+appointment scheduling and broader DRO frameworks [24, 29].
 
 Service-time families are parameterized so that $E[S] = 10$ min for every
 spec (Table 1, Fig. 1): gamma, Weibull, and lognormal at $\mathrm{CV} =
@@ -155,6 +158,10 @@ fit a gamma by moments, and evaluate the implied optimal uniform interval;
 the fitted-CV-to-interval map is itself a precomputed SAA table kept in the
 reproducibility package. We report effect sizes and MC uncertainty rather
 than significance tests, which are uninformative at these sample sizes.
+
+Operational robustness additionally varies no-show probabilities and
+arrival jitter, reflecting established appointment models with absences
+and unpunctuality [17-19].
 
 ## 4. Results
 
@@ -266,6 +273,9 @@ This separates the value of optimization (large: fixed slots leave
 36.3% of attainable savings unrealized at $N = 30$) from the value of
 information (upper-tail descriptors determine how large the stakes are) and
 from scheduling complexity (nearly worthless beyond the scalar interval).
+This result complements established interval-optimization studies
+[9-11] by quantifying the marginal value of
+added schedule complexity in the tested setting.
 
 Second, distributional model risk is real and asymmetric. Designs optimized
 under a wrongly assumed family can exceed the cost of no optimization at
@@ -276,6 +286,8 @@ study quantifies how much history is needed: for the finite-moment and
 light-tailed families studied, moment-based designs are already stable at
 ~250 observations, while the genuinely heavy-tailed Pareto stress case
 never stabilizes — there, family diagnosis matters more than sample size.
+Limited-distribution-information approaches provide a relevant framework
+for interpreting this model risk [23, 24, 29].
 
 Third, implementability: the recommended design needs only (i) an empirical
 CV and upper quantile of consultation duration and (ii) a one-time scalar
@@ -300,6 +312,8 @@ scheduled services — procedure blocks, imaging sessions, service counters —
 but that generalization is a conjecture, not a result. Validation on
 measured consultation-time data and multi-provider extensions are natural
 next steps.
+These extensions address operational features emphasized in the broader
+appointment-scheduling literature [5-8].
 
 ## 6. Conclusion
 

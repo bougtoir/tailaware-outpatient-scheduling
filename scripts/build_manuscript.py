@@ -3,6 +3,7 @@ cover letter, highlights, declarations — all numbers pulled from
 results/processed CSVs (no hard-coded result values)."""
 import os, re, sys
 import pandas as pd
+from citations import format_citation
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROC = os.path.join(ROOT, "results", "processed")
@@ -192,10 +193,11 @@ of patient $i$, equal to patient $i$'s waiting time $W_i$. Then
 
 $$D_1 = 0,\quad D_{{i+1}} = \max(0,\, D_i + S_i - x_i),\quad i = 1,\dots,N-1,$$
 
-the finite-horizon Lindley recursion on the lattice of scheduled starts.
+the finite-horizon Lindley recursion on the lattice of scheduled starts [@lindley1952].
 Physician idle time is $I = \sum_{{i=1}}^{{N-1}} \max(0,\, x_i - D_i - S_i)$
 and session overtime is $O = D_N + S_N$, the residual work after the
-scheduled end. The social cost of a session is
+scheduled end. The social cost of a session combines waiting, idle time,
+and overtime, as in established appointment-scheduling formulations [@denton2003;kaandorp2007]:
 
 $$C(\pi) = c_w \sum_i W_i + c_i I + c_o O,$$
 
@@ -212,8 +214,10 @@ Policies evaluated (Table 2) span: fixed mean-based slots; a conservative
 fixed slot (mean plus slack); a quantile-based slot; a class-based rule using
 mixture-component labels where such classes are observable; SAA-optimized
 uniform and nonuniform intervals; a CVaR-penalized tail-aware uniform
-interval; a distributionally robust (DRO) uniform interval hedging across a
-four-family ambiguity set; and the oracle.
+interval [@rockafellar2000]; a distributionally robust (DRO) uniform interval
+hedging across a four-family ambiguity set; and the oracle. The DRO policy
+uses the worst-case expected-cost principle studied in limited-information
+appointment scheduling and broader DRO frameworks [@mak2015;rahimian2022].
 
 Service-time families are parameterized so that $E[S] = 10$ min for every
 spec (Table 1, Fig. 1): gamma, Weibull, and lognormal at $\mathrm{{CV}} =
@@ -238,6 +242,10 @@ fit a gamma by moments, and evaluate the implied optimal uniform interval;
 the fitted-CV-to-interval map is itself a precomputed SAA table kept in the
 reproducibility package. We report effect sizes and MC uncertainty rather
 than significance tests, which are uninformative at these sample sizes.
+
+Operational robustness additionally varies no-show probabilities and
+arrival jitter, reflecting established appointment models with absences
+and unpunctuality [@hassin2008;muthuraman2008;deceuninck2018].
 
 ## 4. Results
 
@@ -349,6 +357,9 @@ This separates the value of optimization (large: fixed slots leave
 {fm_rel_N1} of attainable savings unrealized at $N = 30$) from the value of
 information (upper-tail descriptors determine how large the stakes are) and
 from scheduling complexity (nearly worthless beyond the scalar interval).
+This result complements established interval-optimization studies
+[@denton2003;kaandorp2007;begen2011] by quantifying the marginal value of
+added schedule complexity in the tested setting.
 
 Second, distributional model risk is real and asymmetric. Designs optimized
 under a wrongly assumed family can exceed the cost of no optimization at
@@ -359,6 +370,8 @@ study quantifies how much history is needed: for the finite-moment and
 light-tailed families studied, moment-based designs are already stable at
 ~250 observations, while the genuinely heavy-tailed Pareto stress case
 never stabilizes — there, family diagnosis matters more than sample size.
+Limited-distribution-information approaches provide a relevant framework
+for interpreting this model risk [@kong2013;mak2015;rahimian2022].
 
 Third, implementability: the recommended design needs only (i) an empirical
 CV and upper quantile of consultation duration and (ii) a one-time scalar
@@ -383,6 +396,8 @@ scheduled services — procedure blocks, imaging sessions, service counters —
 but that generalization is a conjecture, not a result. Validation on
 measured consultation-time data and multi-provider extensions are natural
 next steps.
+These extensions address operational features emphasized in the broader
+appointment-scheduling literature [@cayirli2003;cayirli2006;gupta2008;ahmadijavid2017].
 
 ## 6. Conclusion
 
@@ -444,8 +459,8 @@ def number_references(text):
                 raise ValueError(f"Unknown citation key: {key}")
             if key not in order:
                 order[key] = len(order) + 1
-            labels.append(str(order[key]))
-        return "[" + ", ".join(labels) + "]"
+            labels.append(order[key])
+        return format_citation(labels)
 
     text = re.sub(r"\[@([a-z0-9;]+)\]", replace, text)
     uncited = entries.keys() - order.keys()

@@ -19,7 +19,9 @@ os.makedirs(FIG, exist_ok=True)
 
 plt.rcParams.update({"font.size": 8, "axes.titlesize": 9,
                      "axes.labelsize": 8, "legend.fontsize": 7,
-                     "figure.dpi": 150})
+                     "figure.dpi": 150, "text.color": "black",
+                     "axes.labelcolor": "black", "xtick.color": "black",
+                     "ytick.color": "black"})
 
 
 def save(fig, name):
@@ -76,7 +78,7 @@ def fig4():
     piv = df.pivot_table(index="true", columns="assumed",
                          values="excess_vs_correct")
     fig, ax = plt.subplots(figsize=(6.2, 4.6))
-    im = ax.imshow(piv.values, aspect="auto", cmap="viridis")
+    im = ax.imshow(piv.values, aspect="auto", cmap="coolwarm", alpha=0.65)
     ax.set_xticks(range(piv.shape[1])); ax.set_xticklabels(piv.columns, rotation=45, ha="right")
     ax.set_yticks(range(piv.shape[0])); ax.set_yticklabels(piv.index)
     for i in range(piv.shape[0]):
@@ -84,7 +86,7 @@ def fig4():
             v = piv.values[i, j]
             if not np.isnan(v):
                 ax.text(j, i, f"{v:.0f}", ha="center", va="center",
-                        fontsize=6, color="w" if v > np.nanmedian(piv.values) else "k")
+                        fontsize=8, color="black")
     ax.set_xlabel("Assumed service-time spec")
     ax.set_ylabel("True service-time spec")
     fig.colorbar(im, label="Excess cost vs correctly-specified design")

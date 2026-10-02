@@ -16,7 +16,18 @@ TOKEN_RE = re.compile(r'(\*\*[^*]+\*\*|\$[^$\n]+?\$|\*[^*\n]+\*)')
 
 def insert_omml(p, latex):
     mathml = latex_to_mathml(latex)
-    p._element.append(mathml_to_omml(mathml))
+    omml = mathml_to_omml(mathml)
+    for run in omml.iter(qn("m:r")):
+        text = run.find(qn("m:t"))
+        if text is not None and text.text == "*":
+            rpr = run.find(qn("m:rPr"))
+            if rpr is None:
+                rpr = OxmlElement("m:rPr")
+                run.insert(0, rpr)
+            literal = OxmlElement("m:lit")
+            literal.set(qn("m:val"), "1")
+            rpr.insert(0, literal)
+    p._element.append(omml)
 
 
 def add_text(p, text, base_bold=False):
@@ -87,6 +98,7 @@ def set_document_fonts(doc, base_pt=12, title_pt=18):
 
     for part in doc.part.package.parts:
         if isinstance(part, XmlPart):
+            _set_black_text_colors(part.element)
             for rf in part.element.iter(qn("w:rFonts")):
                 _set_font_names(rf)
             for p in part.element.iter(qn("w:p")):
@@ -106,6 +118,7 @@ def set_document_fonts(doc, base_pt=12, title_pt=18):
             part._blob = etree.tostring(theme, xml_declaration=True, encoding="UTF-8", standalone=True)
         elif str(part.partname).endswith(".xml"):
             root = parse_xml(part.blob)
+            _set_black_text_colors(root)
             for rf in root.iter(qn("w:rFonts")):
                 _set_font_names(rf)
             for style in root.iter(qn("w:style")):
@@ -158,12 +171,34 @@ def _set_run_properties(rpr, size):
         rf = OxmlElement("w:rFonts")
         rpr.insert(0, rf)
     _set_font_names(rf)
+    color = rpr.find(qn("w:color"))
+    if color is None:
+        color = OxmlElement("w:color")
+        rpr.append(color)
+    color.attrib.clear()
+    color.set(qn("w:val"), "000000")
     for tag in ("w:sz", "w:szCs"):
         el = rpr.find(qn(tag))
         if el is None:
             el = OxmlElement(tag)
             rpr.append(el)
         el.set(qn("w:val"), str(int(size * 2)))
+
+
+def _set_black_text_colors(root):
+    for rpr in root.iter(qn("w:rPr")):
+        if rpr.find(qn("w:color")) is None:
+            color = OxmlElement("w:color")
+            color.set(qn("w:val"), "000000")
+            rpr.append(color)
+    for color in root.iter(qn("w:color")):
+        color.attrib.clear()
+        color.set(qn("w:val"), "000000")
+    for fill in root.iter(qn("w14:textFill")):
+        fill.clear()
+        color = OxmlElement("a:srgbClr")
+        color.set("val", "000000")
+        fill.append(color)
 
 
 def add_caption(doc, label, text, size=10):

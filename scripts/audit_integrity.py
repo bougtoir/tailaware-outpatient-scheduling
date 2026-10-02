@@ -3,6 +3,7 @@ citation, unresolved template placeholders, results-file existence, and a
 provenance map for every numerical claim in the manuscript."""
 import os, re, sys
 import pandas as pd
+from citations import cited_numbers
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAN = os.path.join(ROOT, "manuscript")
@@ -66,9 +67,7 @@ def main():
 
     body, references = md.split("## References", 1)
     labels = [int(n) for n in re.findall(r"^\[(\d+)\]", references, re.MULTILINE)]
-    cited = []
-    for match in re.finditer(r"\[(\d+(?:,\s*\d+)*)\]", body):
-        cited.extend(int(n) for n in match.group(1).split(","))
+    cited = list(cited_numbers(body))
     first_mentions = list(dict.fromkeys(cited))
     expected = list(range(1, len(labels) + 1))
     if labels != expected or first_mentions != expected:

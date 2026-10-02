@@ -6,6 +6,7 @@ from zipfile import ZipFile
 from docx import Document
 from docx.oxml.ns import qn
 from lxml import etree
+from citations import cited_numbers
 
 ROOT = Path(__file__).resolve().parents[1]
 MAN = ROOT / "manuscript"
@@ -23,6 +24,14 @@ def verify_fonts(path):
                     assert fonts.get(qn(key)) == "Times New Roman", (name, key)
             for font in root.iter(qn("m:mathFont")):
                 assert font.get(qn("m:val")) == "Times New Roman"
+            for color in root.iter(qn("w:color")):
+                assert dict(color.attrib) == {qn("w:val"): "000000"}, (name, color.attrib)
+            for rpr in root.iter(qn("w:rPr")):
+                color = rpr.find(qn("w:color"))
+                assert color is not None, (name, "missing explicit text color")
+            for fill in root.iter(qn("w14:textFill")):
+                assert len(fill) == 1 and fill[0].tag == qn("a:srgbClr")
+                assert fill[0].get("val") == "000000", name
             for scheme in root.iter(qn("a:fontScheme")):
                 for font in scheme.iter():
                     if "typeface" in font.attrib:
@@ -57,8 +66,7 @@ def verify_references(doc):
     labels = [int(re.match(r"^\[(\d+)\]", p).group(1)) for p in entries]
     cited = []
     for p in paragraphs[:boundary]:
-        for match in re.finditer(r"\[(\d+(?:,\s*\d+)*)\]", p):
-            cited.extend(int(n) for n in match.group(1).split(","))
+        cited.extend(cited_numbers(p))
     assert labels == list(range(1, len(entries) + 1))
     assert list(dict.fromkeys(cited)) == labels
     assert set(cited) == set(labels)
