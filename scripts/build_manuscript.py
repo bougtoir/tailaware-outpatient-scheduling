@@ -220,7 +220,7 @@ appointment scheduling and broader DRO frameworks [@kong2013;mak2015;vaneekelen2
 
 Service-time families are parameterized so that $E[S] = 10$ min for every
 spec (Table 1, Fig. 1): gamma, Weibull, and lognormal at $\mathrm{{CV}} =
-0.5\text{{--}}2.0$, gamma-gamma mixtures with a long-consultation component,
+0.5\text{{–}}2.0$, gamma-gamma mixtures with a long-consultation component,
 and Pareto type I with tail index $\alpha \in \{{2.5, 3.5\}}$ — the only
 genuinely heavy-tailed cases here (infinite fourth moment for $\alpha =
 2.5$). We use "heavy-tailed" only for the
@@ -229,7 +229,7 @@ or long-tailed throughout.
 
 ## 3. Computational design
 
-For each condition we evaluate policies on $M = 60{{,}}000\text{{--}}100{{,}}000$
+For each condition we evaluate policies on $M = 60{{,}}000\text{{–}}100{{,}}000$
 independently sampled sessions (evaluation draws are fresh and disjoint
 from SAA design draws), reporting Monte Carlo standard errors. Designs
 span $N \in \{{20, 30, 50\}}$ and $\mathrm{{CV}} \in [0.25, 2.0]$ with

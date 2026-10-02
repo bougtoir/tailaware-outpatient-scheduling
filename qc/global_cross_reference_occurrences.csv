@@ -3,6 +3,15 @@ FINAL_CITATION_FORMATTING_HANDOFF.md,23,Supplementary Figure,historical/frozen e
 FINAL_CITATION_FORMATTING_HANDOFF.md,23,Figure 6,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 FINAL_FINISHING_HANDOFF.md,5,Figure 6,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 FINAL_INTEGRATED_ARCHITECTURE_HANDOFF.md,6,Figure 5,active current architecture,Current final handoff or final critical review.
+FINAL_MICRO_FINISHING_HANDOFF.md,8,Figure 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+FINAL_MICRO_FINISHING_HANDOFF.md,9,Figure 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+FINAL_MICRO_FINISHING_HANDOFF.md,10,Figure 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+FINAL_MICRO_FINISHING_HANDOFF.md,11,Figure 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+FINAL_MICRO_FINISHING_HANDOFF.md,11,Table 3,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+FINAL_MICRO_FINISHING_HANDOFF.md,13,Figure 7,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+FINAL_MICRO_FINISHING_HANDOFF.md,13,Figure 8,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+FINAL_MICRO_FINISHING_HANDOFF.md,17,Figure 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+FINAL_MICRO_FINISHING_HANDOFF.md,19,Figure 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 FINAL_OMEGA_REVISION_HANDOFF.md,43,Figure 6,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 FINAL_OMEGA_REVISION_HANDOFF.md,50,Table 3,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 FINAL_OMEGA_REVISION_HANDOFF.md,61,Figure 6,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
@@ -13,10 +22,13 @@ manuscript/manuscript.md,49,Table 1,active current architecture,"Current source,
 manuscript/manuscript.md,61,Table 3,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
 manuscript/manuscript.md,75,Table 4,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
 output/omega_submission_FINAL_INTEGRATED/README.txt,10,Figure 5,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+output/omega_submission_FINAL_READY/README.txt,10,Figure 5,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/citation_architecture_audit.md,7,Figure 5,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
 qc/citation_relocation_map.csv,3,Table 2,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/citation_relocation_map.csv,6,Table 2,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/citation_relocation_map.csv,12,Table 2,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/content_preservation_diff.md,11,Figure 4,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
+qc/content_preservation_diff.md,12,Figure 4,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
 qc/decision_map_audit.md,5,Figure 8,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/final_finishing_pass.md,3,Figure 6,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/final_render_audit.md,12,Table 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
@@ -134,6 +146,8 @@ qc/integrated_architecture_baseline.json,25286,Figure 6,historical/frozen eviden
 qc/integrated_architecture_baseline.json,25290,Figure 6,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/integrated_architecture_baseline.json,25298,Figure S1,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/integrated_architecture_baseline.json,25300,Supplementary Fig,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/integrated_architecture_content_preservation.md,11,Figure 4,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
+qc/integrated_architecture_content_preservation.md,12,Figure 4,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
 qc/integrated_architecture_inventory_before.csv,23,Table 2,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/integrated_architecture_inventory_before.csv,24,Table 2,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/integrated_architecture_inventory_before.csv,25,Table 2,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
@@ -208,6 +222,16 @@ qc/main_supplement_cross_reference_map.csv,13,Figure 6,architecture migration ma
 qc/main_supplement_cross_reference_map.csv,13,Figure 7,architecture migration map,The old-label column intentionally records the frozen source label; the final-label column records its resolved destination.
 qc/main_supplement_cross_reference_map.csv,14,Figure S1,architecture migration map,The old-label column intentionally records the frozen source label; the final-label column records its resolved destination.
 qc/main_supplement_cross_reference_map.csv,14,Figure 5,architecture migration map,The old-label column intentionally records the frozen source label; the final-label column records its resolved destination.
+qc/micro_finishing_build_audit.md,9,Figure 2,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/micro_finishing_build_audit.md,21,Figure 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/micro_finishing_render_audit.md,11,Table 1,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/micro_finishing_render_audit.md,12,Table 2,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/micro_finishing_render_audit.md,14,Figure 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/micro_finishing_render_audit.md,21,Figure 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/micro_finishing_render_audit.md,23,Figure 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/micro_finishing_render_audit.md,23,Table 3,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/negative_zero_figure_audit.md,4,Figure 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/negative_zero_figure_audit.md,16,Figure 4,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/pre_format_content_manifest.json,33,Table 1,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/pre_format_content_manifest.json,34,Table 2,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/pre_format_content_manifest.json,35,Table 1,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
@@ -271,6 +295,10 @@ qc/pre_format_content_manifest.json,23775,Figure S1,historical/frozen evidence,R
 qc/pre_format_content_manifest.json,23777,Figure S1,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/pre_format_content_manifest.json,24323,Figure 6,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/pre_format_content_manifest.json,24324,Figure S1,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/range_dash_audit.csv,4,Table 1,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/range_dash_audit.csv,5,Table 1,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/range_dash_audit.csv,6,Table 1,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
+qc/range_dash_audit.csv,7,Table 1,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/supplement_to_main_triage.csv,2,Figure S1,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/supplement_to_main_triage.csv,2,Figure 5,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
 qc/supplement_to_main_triage.csv,3,Figure 6,historical/frozen evidence,Retained to document the pre-pass state or a prior package; not an active build source.
@@ -285,13 +313,15 @@ scripts/build_manuscript.py,260,Table 3,active current architecture,"Current sou
 scripts/build_manuscript.py,307,Table 4,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
 scripts/formatting_audit.py,49,Supplementary Fig,migration/validation code,The code records or rejects the obsolete label; it does not emit that label in the current manuscript.
 scripts/formatting_audit.py,59,Supplementary Fig,migration/validation code,The code records or rejects the obsolete label; it does not emit that label in the current manuscript.
-scripts/formatting_audit.py,113,Supplementary Fig,migration/validation code,The code records or rejects the obsolete label; it does not emit that label in the current manuscript.
-scripts/formatting_audit.py,176,Supplementary Fig,migration/validation code,The code records or rejects the obsolete label; it does not emit that label in the current manuscript.
-scripts/integrated_architecture.py,138,Figure 6,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
-scripts/integrated_architecture.py,139,Figure 6,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
-scripts/integrated_architecture.py,140,Figure S1,migration/validation code,The code records or rejects the obsolete label; it does not emit that label in the current manuscript.
-scripts/integrated_architecture.py,150,Figure 6,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
-scripts/integrated_architecture.py,460,Figure 6,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
+scripts/formatting_audit.py,116,Supplementary Fig,migration/validation code,The code records or rejects the obsolete label; it does not emit that label in the current manuscript.
+scripts/formatting_audit.py,179,Supplementary Fig,migration/validation code,The code records or rejects the obsolete label; it does not emit that label in the current manuscript.
+scripts/integrated_architecture.py,142,Figure 6,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
+scripts/integrated_architecture.py,143,Figure 6,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
+scripts/integrated_architecture.py,144,Figure S1,migration/validation code,The code records or rejects the obsolete label; it does not emit that label in the current manuscript.
+scripts/integrated_architecture.py,154,Figure 6,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
+scripts/integrated_architecture.py,474,Figure 6,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
+scripts/integrated_architecture.py,491,Figure 4,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
+scripts/integrated_architecture.py,492,Figure 4,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
 scripts/make_docs.py,140,Table 4,legacy phase documentation,Historical phase documentation; excluded from the canonical manuscript build.
 scripts/make_inline_docx.py,20,Figure 1,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."
 scripts/make_inline_docx.py,21,Figure 2,active current architecture,"Current source, generated manuscript, validation code, or after-pass audit."

@@ -30,6 +30,13 @@ def save(fig, name):
     plt.close(fig)
 
 
+def format_annotation(value, decimals=0):
+    rounded = round(float(value), decimals)
+    if rounded == 0:
+        rounded = 0.0
+    return f"{rounded:.{decimals}f}"
+
+
 def fig1():
     fig, ax = plt.subplots(figsize=(6.5, 3.2))
     for name, spec in dists.CANONICAL_SPECS:
@@ -85,7 +92,7 @@ def fig4():
         for j in range(piv.shape[1]):
             v = piv.values[i, j]
             if not np.isnan(v):
-                ax.text(j, i, f"{v:.0f}", ha="center", va="center",
+                ax.text(j, i, format_annotation(v), ha="center", va="center",
                         fontsize=8, color="black")
     ax.set_xlabel("Assumed service-time spec")
     ax.set_ylabel("True service-time spec")

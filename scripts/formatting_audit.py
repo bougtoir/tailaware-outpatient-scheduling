@@ -75,13 +75,16 @@ def math_semantics(node):
 
 
 def equation_content(node):
-    return {
+    normalized = {
         **node,
         "children": [
             equation_content(child) for child in node["children"]
             if child["tag"] != qn("m:lit")
         ],
     }
+    if normalized["text"] == "--":
+        normalized["text"] = "–"
+    return normalized
 
 
 def snapshot(path):

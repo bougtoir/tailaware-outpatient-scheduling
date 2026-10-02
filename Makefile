@@ -1,6 +1,6 @@
 PY = python3
 
-.PHONY: all sim figs tables manuscript qc test clean clean-documents package-integrated
+.PHONY: all sim figs tables manuscript qc test clean clean-documents package-integrated package-final-ready
 
 all: sim figs tables manuscript qc
 
@@ -26,6 +26,9 @@ manuscript:
 
 package-integrated: manuscript
 	$(PY) scripts/package_integrated_submission.py
+
+package-final-ready: manuscript
+	$(PY) scripts/package_final_ready.py
 
 qc:
 	$(PY) -m pytest tests -q

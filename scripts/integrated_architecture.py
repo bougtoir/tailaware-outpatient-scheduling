@@ -30,6 +30,10 @@ TRANSFERRED_METHODS = (
     r"The no-show probabilities are $p \in \{{0, .05, .10, .20\}}$ and "
     "arrival jitter has sd 0 or 2 min."
 )
+PRESENTATION_ONLY_FILES = {
+    "figures/fig4_misspec_matrix.pdf",
+    "figures/fig4_misspec_matrix.png",
+}
 
 
 def sha(path):
@@ -227,6 +231,8 @@ def source_science(text, before=False):
     text = re.sub(r"\[@[a-z0-9;]+\]", "", text)
     text = re.sub(r"\((?:Supplementary )?Fig\.\s+S?\d+\)", "", text)
     text = re.sub(r"\bFig\.\s+S?\d+\b", "Fig. OBJECT", text)
+    text = text.replace(r"\text{--}", r"\text{–}")
+    text = text.replace(r"\text{{--}}", r"\text{{–}}")
     text = plain(text)
     if before:
         text = text.replace(
@@ -387,6 +393,8 @@ def verify():
     additions = final_math - retained_math
     assert additions <= math_counts(baseline["documents"]["supplement.docx"]), "New equation not supported by frozen supplement"
     expected_media = set(before["embedded_media"]) | set(baseline["documents"]["supplement.docx"]["embedded_media"])
+    expected_media.discard(baseline["immutable_files"]["figures/fig4_misspec_matrix.png"])
+    expected_media.add(sha(ROOT / "figures/fig4_misspec_matrix.png"))
     assert set(after["embedded_media"]) == expected_media
     assert len(after["embedded_media"]) == len(FIG_CAPTIONS) == 8
     original_captions = {
@@ -402,7 +410,9 @@ def verify():
     }
     for name, expected in baseline["immutable_files"].items():
         current = ROOT / translated_path(name)
-        if name in reflowed_markdown:
+        if translated_path(name) in PRESENTATION_ONLY_FILES:
+            assert current.is_file(), name
+        elif name in reflowed_markdown:
             frozen_copies = [
                 ROOT / filename
                 for filename, digest in baseline["immutable_files"].items()
@@ -418,7 +428,11 @@ def verify():
             assert sha(current) == expected, name
     old_format = json.loads((QC / "pre_format_content_manifest.json").read_text())
     for name, expected in old_format["immutable_files"].items():
-        assert sha(ROOT / translated_path(name)) == expected, name
+        current = ROOT / translated_path(name)
+        if translated_path(name) in PRESENTATION_ONLY_FILES:
+            assert current.is_file(), name
+        else:
+            assert sha(current) == expected, name
     old_occurrences = baseline["reference_occurrences"]
     new_occurrences = occurrences(MANUSCRIPT_MD)
     registry = json.loads((ROOT / "literature/normalized_references.json").read_text())
@@ -467,15 +481,15 @@ def verify():
     assert {path.stem for path in (ROOT / "figures").glob("*.pdf")} == set(FIG_CAPTIONS)
     report = [
         "# Integrated architecture content preservation", "",
-        f"Frozen commit: `{baseline['commit']}`. No scientific simulation was rerun.", "",
-        "- PASS: canonical scientific source is byte-for-byte equivalent after whitespace normalization and declared editorial transformations.",
-        "- Declared transformations: remove keyed citations and object callouts for comparison; contract only the Introduction's Lindley/Soriano/Cayirli author-list clauses; transfer the supplement's no-show/jitter parameter sentence to Methods.",
+        f"Frozen commit: `{baseline['commit']}`. Scientific algorithms, settings and final numerical outputs are unchanged; see the micro-finishing build audit for the clean-build reproduction check.", "",
+        "- PASS: canonical scientific source is equivalent after whitespace normalization and declared editorial/presentation transformations.",
+        "- Declared transformations: remove keyed citations and object callouts for comparison; contract only the Introduction's Lindley/Soriano/Cayirli author-list clauses; transfer the supplement's no-show/jitter parameter sentence to Methods; normalize an ASCII double-hyphen range separator to one en dash.",
         "- PASS: remaining prose, terminology, scientific numeric strings, estimands, equations in source, settings, conclusions and interpretations are identical.",
-        "- PASS: all original native Word equations survive unchanged; all additional equations are supported by the frozen supplement.",
+        "- PASS: all original native Word equations survive semantically unchanged; the two range separators normalize from double hyphens to one en dash.",
         "- PASS: four embedded tables and their values/headings are exactly unchanged.",
         "- PASS: original main captions retain their content; the cascade definition and estimation-replication detail are transferred from the frozen supplement.",
-        "- PASS: final embedded images are exactly the unique union of prior main/supplement image hashes; no image pixels or figure data changed.",
-        f"- PASS: {len(baseline['immutable_files']) - len(reflowed_markdown)} newly frozen files and {len(old_format['immutable_files'])} original formatting-baseline files preserve SHA-256; two nonscientific Markdown files preserve identical normalized tokens after removing hard wraps; four figure basenames are translated without changing bytes.",
+        "- PASS: final embedded images are the unique prior main/supplement set with Figure 4 replaced only by its corrected annotation rendering; its source data are unchanged.",
+        "- PASS: frozen files preserve SHA-256 except the two declared Figure 4 renderings; two nonscientific Markdown files preserve identical normalized tokens after removing hard wraps; four figure basenames are translated without changing bytes.",
         "- All prior ZIPs and staging files are unchanged; simulation code/configuration/results, reference metadata and table CSVs are unchanged.",
         "- Both main DOCX files contain the same scientific body, equations, tables, references and eight images.",
         f"- Introduction references: {len(baseline['introduction_keys'])} → {len(intro)}; {len(relocated)} works relocated; complete bibliography remains exactly 30 works.",
