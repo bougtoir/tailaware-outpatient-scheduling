@@ -1,6 +1,7 @@
 """Phase 15/21: generate the Omega manuscript (.md + .docx), supplement,
 cover letter, highlights, declarations — all numbers pulled from
 results/processed CSVs (no hard-coded result values)."""
+import json
 import os, re, sys
 import pandas as pd
 from citations import format_citation
@@ -147,14 +148,12 @@ Bailey [@welch1952], with the stochastic core traceable to Lindley [@lindley1952
 early policy comparisons by Soriano [@soriano1966]; modern reviews include Cayirli
 and Veral [@cayirli2003], Cayirli et al. [@cayirli2006], Gupta and Denton [@gupta2008], and
 Ahmadi-Javid et al. [@ahmadijavid2017]. Optimal interval design under known stochastic
-service times is well studied [@denton2003;kaandorp2007;begen2011;berg2014;chen2014;pan2021],
+service times is well studied [@denton2003;kaandorp2007;begen2011],
 as are heuristic rules [@robinson2003], unpunctuality and
 interruptions [@klassen2013;deceuninck2018],
-no-shows and overbooking [@hassin2008;muthuraman2008;zacharias2014;wang2015], and service-time
+no-shows and overbooking [@hassin2008;muthuraman2008;zacharias2014], and service-time
 variability [@salzarulo2011]. Distributionally robust and conic
-designs hedge against limited distributional information [@kong2013;mak2015;vaneekelen2024;bauerhenne2026],
-resting on CVaR and robust-optimization machinery
-[@rockafellar2000;bertsimas2004;rahimian2022], with general scheduling foundations in Pinedo [@pinedo2011].
+designs hedge against limited distributional information [@mak2015;vaneekelen2024;bauerhenne2026].
 
 What is less developed is an interpretable mapping from distributional
 shape — and distributional *misspecification* — to the value of scheduling
@@ -210,14 +209,16 @@ true distribution by sample average approximation (SAA); regret is
 $R(\pi) = C(\pi) - C(\pi^*)$ and relative regret $R(\pi)/C(\pi^*)$
 (Table 1).
 
-Policies evaluated (Table 2) span: fixed mean-based slots; a conservative
+Policies evaluated (Table 2), resting on CVaR and robust-optimization machinery
+[@rockafellar2000;bertsimas2004;rahimian2022], with general scheduling foundations in Pinedo [@pinedo2011],
+span: fixed mean-based slots; a conservative
 fixed slot (mean plus slack); a quantile-based slot; a class-based rule using
 mixture-component labels where such classes are observable; SAA-optimized
 uniform and nonuniform intervals; a CVaR-penalized tail-aware uniform
 interval [@rockafellar2000]; a distributionally robust (DRO) uniform interval
 hedging across a four-family ambiguity set; and the oracle. The DRO policy
 uses the worst-case expected-cost principle studied in limited-information
-appointment scheduling and broader DRO frameworks [@mak2015;rahimian2022].
+appointment scheduling and broader DRO frameworks [@kong2013;mak2015;vaneekelen2024;bauerhenne2026;rahimian2022].
 
 Service-time families are parameterized so that $E[S] = 10$ min for every
 spec (Table 1, Fig. 1): gamma, Weibull, and lognormal at $\mathrm{{CV}} =
@@ -236,7 +237,7 @@ from SAA design draws), reporting Monte Carlo standard errors. Designs
 span $N \in \{{20, 30, 50\}}$ and $\mathrm{{CV}} \in [0.25, 2.0]$ with
 boundary refinement where regret surfaces curve. In the misspecification
 study the designing distribution differs from the generating distribution
-in family, parameters, or both. For estimation uncertainty we draw
+in family, parameters, or both. For estimation uncertainty (Supplementary Fig. S1) we draw
 $n \in \{{50,\dots,1000\}}$ historical service times,
 fit a gamma by moments, and evaluate the implied optimal uniform interval;
 the fitted-CV-to-interval map is itself a precomputed SAA table kept in the
@@ -358,7 +359,7 @@ This separates the value of optimization (large: fixed slots leave
 information (upper-tail descriptors determine how large the stakes are) and
 from scheduling complexity (nearly worthless beyond the scalar interval).
 This result complements established interval-optimization studies
-[@denton2003;kaandorp2007;begen2011] by quantifying the marginal value of
+[@denton2003;kaandorp2007;begen2011;berg2014;chen2014;pan2021] by quantifying the marginal value of
 added schedule complexity in the tested setting.
 
 Second, distributional model risk is real and asymmetric. Designs optimized
@@ -397,7 +398,7 @@ but that generalization is a conjecture, not a result. Validation on
 measured consultation-time data and multi-provider extensions are natural
 next steps.
 These extensions address operational features emphasized in the broader
-appointment-scheduling literature [@cayirli2003;cayirli2006;gupta2008;ahmadijavid2017].
+appointment-scheduling literature [@cayirli2003;cayirli2006;gupta2008;ahmadijavid2017;wang2015].
 
 ## 6. Conclusion
 
@@ -439,17 +440,19 @@ configuration are available at [PUBLIC REPO URL — insert at submission].
 
 
 def number_references(text):
-    lit = pd.read_csv(os.path.join(ROOT, "literature", "literature_matrix.csv"))
-    lit = lit[lit.verified == "YES"].copy()
+    path = os.path.join(ROOT, "literature", "normalized_references.json")
+    with open(path) as stream:
+        records = json.load(stream)
     entries = {}
-    for _, r in lit.iterrows():
-        surname = re.sub(r"[^a-z]", "", r["authors"].split(",")[0].lower())
-        key = surname + str(int(r["year"]))
+    dois = set()
+    for record in records:
+        key = record["citation_key"]
         if key in entries:
             raise ValueError(f"Duplicate reference key: {key}")
-        entries[key] = (
-            f"{r['authors']} ({int(r['year'])}). "
-            f"{r['title']}. {r['journal']}. doi:{r['doi']}")
+        if record["doi"] in dois:
+            raise ValueError(f"Duplicate DOI: {record['doi']}")
+        dois.add(record["doi"])
+        entries[key] = record["formatted_entry"]
     order = {}
 
     def replace(match):
@@ -467,6 +470,32 @@ def number_references(text):
     if uncited:
         raise ValueError(f"Uncited references: {sorted(uncited)}")
     return text + "\n\n".join(f"[{n}] {entries[key]}" for key, n in order.items()) + "\n"
+
+
+def unwrap_paragraphs(text):
+    output = []
+    paragraph = []
+
+    def flush():
+        if paragraph:
+            output.append(" ".join(paragraph))
+            paragraph.clear()
+
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            flush()
+            output.append("")
+        elif stripped.startswith(("#", "$$")):
+            flush()
+            output.append(stripped)
+        elif re.match(r"^(?:[-*] |\d+\. )", stripped):
+            flush()
+            paragraph.append(stripped)
+        else:
+            paragraph.append(stripped)
+    flush()
+    return "\n".join(output) + "\n"
 
 
 def main():
@@ -497,7 +526,7 @@ def main():
         cascade_cum=n["cascade_cum_mid"],
         rob_frac=pct(n["rob_tail_better_frac"]),
     )
-    text = number_references(text)
+    text = unwrap_paragraphs(number_references(text))
     with open(os.path.join(MAN, "manuscript.md"), "w") as f:
         f.write(text)
 

@@ -85,7 +85,19 @@ def verify_figures(doc):
             number = int(caption.group(1))
             placed.append(number)
             assert nodes[i - 1].find(".//" + qn("w:drawing")) is not None
-            assert i - 2 == first[number], (number, first[number], i)
+            previous = i - 2
+            while previous > first[number]:
+                prior = nodes[previous]
+                prior_text = "".join(t.text or "" for t in prior.iter(qn("w:t")))
+                is_object = (
+                    prior.tag == qn("w:tbl")
+                    or prior.find(".//" + qn("w:drawing")) is not None
+                    or re.match(r"^(?:Figure|Table)\s+", prior_text)
+                )
+                if not is_object:
+                    break
+                previous -= 1
+            assert previous == first[number], (number, first[number], i)
             continue
         for match in re.finditer(r"Fig\.\s+(\d+)\b", text):
             first.setdefault(int(match.group(1)), i)

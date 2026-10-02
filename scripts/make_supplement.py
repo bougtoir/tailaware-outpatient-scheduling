@@ -81,6 +81,12 @@ reproducible from the accompanying code package.
 
 [Author names, affiliations, and signature to be completed by authors.]
 """)
+    cover_doc = Document()
+    with open(os.path.join(MAN, "cover_letter.md")) as stream:
+        for block in stream.read().strip().split("\n\n"):
+            add_para(cover_doc, " ".join(block.splitlines()))
+    set_document_fonts(cover_doc)
+    cover_doc.save(os.path.join(MAN, "cover_letter.docx"))
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from build_manuscript import numbers, pct
     _n = numbers()

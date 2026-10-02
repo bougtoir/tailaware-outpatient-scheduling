@@ -1,0 +1,2 @@
+data/raw/reference_metadata/*/*.json -text
+data/raw/reference_metadata/*/*.html -text -diff

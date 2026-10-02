@@ -17,9 +17,12 @@ TOKEN_RE = re.compile(r'(\*\*[^*]+\*\*|\$[^$\n]+?\$|\*[^*\n]+\*)')
 def insert_omml(p, latex):
     mathml = latex_to_mathml(latex)
     omml = mathml_to_omml(mathml)
-    for run in omml.iter(qn("m:r")):
+    for index, run in enumerate(omml.iter(qn("m:r"))):
         text = run.find(qn("m:t"))
-        if text is not None and text.text == "*":
+        if text is not None and (
+            text.text == "*"
+            or (index == 0 and text.text in {"<", ">", "≤", "≥"})
+        ):
             rpr = run.find(qn("m:rPr"))
             if rpr is None:
                 rpr = OxmlElement("m:rPr")
