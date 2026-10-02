@@ -21,10 +21,13 @@ tables:
 manuscript:
 	$(PY) scripts/build_manuscript.py
 	$(PY) scripts/make_supplement.py
+	$(PY) scripts/make_inline_docx.py
+	$(PY) scripts/revision_audits.py
 
 qc:
 	$(PY) -m pytest tests -q
 	$(PY) scripts/audit_integrity.py
+	$(PY) scripts/verify_docx.py
 
 literature:
 	$(PY) scripts/build_literature.py

@@ -1,7 +1,7 @@
 """Phase 13: programmatic Omega figures (vector PDF + PNG preview).
 Fig1 same mean / different tails; Fig2 delay propagation; Fig3 fixed-slot
 regret surface; Fig4 misspecification matrix; Fig5 Pareto frontier;
-Fig6 managerial decision map."""
+Fig6 delay cascade; Fig7 value-of-optimization map."""
 import os, sys
 import numpy as np
 import pandas as pd
@@ -30,7 +30,6 @@ def save(fig, name):
 
 def fig1():
     fig, ax = plt.subplots(figsize=(6.5, 3.2))
-    xs = np.linspace(0.01, 80, 2000)
     for name, spec in dists.CANONICAL_SPECS:
         rng = np.random.default_rng(3)
         s = np.sort(dists.sample(spec, 400_000, rng))
@@ -68,7 +67,7 @@ def fig3():
         ax.set_xlabel("CV of service time")
         axes[0].set_ylabel("Fixed-slot relative regret (%)")
     axes[-1].legend(frameon=False, loc="upper left")
-    fig.suptitle("When do fixed mean-based slots fail?", y=1.02)
+    fig.suptitle("Relative regret of mean-based slots: roughly flat in CV, rising with N\n(absolute regret rises approximately linearly in CV; see text)", y=1.05)
     save(fig, "fig3_regret_surface")
 
 
@@ -86,15 +85,17 @@ def fig4():
             if not np.isnan(v):
                 ax.text(j, i, f"{v:.0f}", ha="center", va="center",
                         fontsize=6, color="w" if v > np.nanmedian(piv.values) else "k")
+    ax.set_xlabel("Assumed service-time spec")
+    ax.set_ylabel("True service-time spec")
     fig.colorbar(im, label="Excess cost vs correctly-specified design")
-    ax.set_title("True x assumed distribution: cost of misspecification")
+    ax.set_title("Cost of family misspecification (diagonal = correctly specified, zero excess)")
     save(fig, "fig4_misspec_matrix")
 
 
 def fig5():
     df = pd.read_csv(os.path.join(PROC, "pareto_sweep.csv"))
     perf = pd.read_csv(os.path.join(PROC, "policy_performance.csv"))
-    fig, ax = plt.subplots(figsize=(6.5, 3.4))
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(9.0, 3.2))
     for name, g in df.groupby("spec"):
         ax.plot(g["E_idle"] + g["E_overtime"], g["E_W_mean"], lw=1,
                 label=name.replace("_", " "))
@@ -104,12 +105,20 @@ def fig5():
         ax.plot(r["E_idle"] + r["E_overtime"], r["E_W_mean"], "ks", ms=4)
     ax.set_xlabel("E[idle + overtime] (min/session)")
     ax.set_ylabel("E[mean waiting] (min)")
-    ax.set_title("Waiting–idle/overtime trade-off (uniform-interval sweep)")
-    ax.legend(ncol=2, frameon=False)
+    ax.set_title("Waiting vs idle+overtime (uniform sweep)")
+    ax.legend(ncol=1, frameon=False, fontsize=6)
+    # right panel: decomposition so combining idle+overtime cannot be misread
+    for name, g in df.groupby("spec"):
+        ax2.plot(g["E_idle"], g["E_overtime"], lw=1,
+                 label=name.replace("_", " "))
+    ax2.set_xlabel("E[idle] (min/session)")
+    ax2.set_ylabel("E[overtime] (min/session)")
+    ax2.set_title("Idle vs overtime decomposition")
+    fig.tight_layout()
     save(fig, "fig5_pareto")
 
 
-def fig6():
+def fig7():
     df = pd.read_csv(os.path.join(PROC, "decision_map.csv"))
     df = df[df.N == 30]
     fig, ax = plt.subplots(figsize=(6.2, 3.4))
@@ -121,21 +130,21 @@ def fig6():
                    marker=m, alpha=0.7, label=fam)
     ax.set_xlabel("CV of service time")
     ax.set_ylabel("Q95 / mean")
-    ax.set_title("Decision map (bubble size = fixed-slot relative regret, N=30)")
+    ax.set_title("Value-of-optimization map (bubble = fixed-slot relative regret, N=30)")
     ax.legend(frameon=False)
-    save(fig, "fig6_decision_map")
+    save(fig, "fig7_decision_map")
 
 
-def figS1():
+def fig6():
     df = pd.read_csv(os.path.join(PROC, "delay_cascade.csv"))
     fig, ax = plt.subplots(figsize=(5.5, 3))
     ax.bar(df["shock_pos"].astype(str), df["cascade_len"])
     ax.set_xlabel("Position of 45-min shock consultation")
     ax.set_ylabel("Cascade length (downstream positions, ΔW>1 min)")
-    save(fig, "figS1_cascade")
+    save(fig, "fig6_cascade")
 
 
-def figS2():
+def figS1():
     df = pd.read_csv(os.path.join(PROC, "estimation_uncertainty.csv"))
     fig, ax = plt.subplots(figsize=(6, 3.2))
     for name, g in df.groupby("true"):
@@ -145,10 +154,10 @@ def figS2():
     ax.set_xlabel("Historical sample size n")
     ax.set_ylabel("Q90 of estimation regret")
     ax.legend(ncol=2, frameon=False)
-    save(fig, "figS2_estimation")
+    save(fig, "figS1_estimation")
 
 
 if __name__ == "__main__":
-    for f in [fig1, fig2, fig3, fig4, fig5, fig6, figS1, figS2]:
+    for f in [fig1, fig2, fig3, fig4, fig5, fig6, fig7, figS1]:
         f()
         print(f.__name__, "ok")

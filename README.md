@@ -8,7 +8,7 @@ Management Science*.
 ## Reproduce everything
 
 ```bash
-pip install numpy scipy pandas matplotlib python-docx pytest
+pip install numpy scipy pandas matplotlib python-docx pytest tabulate
 make clean && make all
 ```
 

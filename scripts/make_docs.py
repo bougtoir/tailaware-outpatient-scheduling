@@ -234,7 +234,7 @@ opt_uniform on simplicity-adjusted grounds (Table 4).
 | Abstract | READY (in manuscript) | — |
 | Keywords | READY | — |
 | Highlights (<=85 chars each) | READY | manuscript/highlights.md |
-| Graphical abstract | recommended; use figures/fig6_decision_map.pdf | figures/ |
+| Graphical abstract | recommended; use figures/fig7_decision_map.pdf | figures/ |
 | Figures (vector) | READY (PDF + PNG) | figures/fig1-6 |
 | Supplement | READY | manuscript/supplement.docx |
 | Cover letter | DRAFT — author signature needed | manuscript/cover_letter.md |

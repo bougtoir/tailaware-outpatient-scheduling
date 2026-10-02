@@ -1,15 +1,7 @@
-# Phase 22 — AI policy audit
+# AI policy audit (R21)
 
-Elsevier policy (verified 2026-09-24): disclose AI tool use in a separate
-declaration statement upon submission; describe AI use in Methods when part
-of the research process; AI cannot be an author; authors must verify output.
-
-## Actual AI involvement log (factual)
-- Literature support: Crossref queries assisted; every reference verified by
-  DOI lookup, none fabricated.
-- Research design: experiment grid/policies drafted by AI, reviewed against
-  prompt specification.
-- Code development: simulator, optimizers, figures — AI-written, unit-tested.
-- Analysis: AI-executed Monte Carlo pipeline.
-- Manuscript: AI-drafted text with computed numbers; HUMAN REVIEW REQUIRED.
-- Declaration draft included in manuscript; flagged for author review.
+Actual AI involvement: Devin (Cognition AI) built the simulator, optimizer,
+experiments, figures, tables, audits, and manuscript drafts; human authors
+provided direction and must review/approve. Elsevier requires declaring
+generative AI use in a dedicated statement; the manuscript contains the
+draft declaration marked for author confirmation. AI is not an author.

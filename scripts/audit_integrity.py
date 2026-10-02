@@ -37,15 +37,15 @@ def main():
     md = open(os.path.join(MAN, "manuscript.md")).read()
 
     # unresolved placeholders
-    if re.search(r"\{[a-z_0-9]+\}", md):
+    if re.search(r"\{[a-z_0-9]+\}", re.sub(r"\$\$?[\s\S]*?\$\$?", "", md)):
         issues.append("unresolved template placeholders in manuscript.md")
 
     # figure files exist and are cited
     figs = [f for f in os.listdir(os.path.join(ROOT, "figures")) if f.endswith(".pdf")]
-    for i in range(1, 7):
+    for i in range(1, 8):
         if not any(f"fig{i}_" in f for f in figs):
             issues.append(f"main figure {i} pdf missing")
-        if f"Fig. {i}" not in md and f"Fig {i}" not in md and f"Figs" not in md:
+        if f"Fig. {i}" not in md and f"Fig {i}" not in md and "Figs" not in md:
             issues.append(f"Figure {i} not cited in manuscript")
     for f in figs:
         base = f.replace(".pdf", "")
@@ -60,20 +60,25 @@ def main():
             issues.append(f"figure {f} not cited")
 
     # tables cited
-    for t in [1, 2]:
+    for t in [1, 2, 3, 4]:
         if f"Table {t}" not in md:
             issues.append(f"Table {t} not cited")
 
-    # every bibliography entry cited in text (author-date style)
-    ref_lines = [l for l in md.splitlines()
-                 if re.match(r"^[^#\[\s].*\(\d{4}\)\..*doi:", l)]
-    body = md.split("## References")[0]
-    for l in ref_lines:
-        surname = l.split(",")[0].strip()
-        yr = re.search(r"\((\d{4})\)", l).group(1)
-        if not re.search(rf"{re.escape(surname)}[\s\S]{{0,80}}{yr}", body,
-                         re.IGNORECASE):
-            issues.append(f"bibliography item not cited in text: {surname} {yr}")
+    body, references = md.split("## References", 1)
+    labels = [int(n) for n in re.findall(r"^\[(\d+)\]", references, re.MULTILINE)]
+    cited = []
+    for match in re.finditer(r"\[(\d+(?:,\s*\d+)*)\]", body):
+        cited.extend(int(n) for n in match.group(1).split(","))
+    first_mentions = list(dict.fromkeys(cited))
+    expected = list(range(1, len(labels) + 1))
+    if labels != expected or first_mentions != expected:
+        issues.append("reference list and first-citation order are not consecutive")
+    if set(cited) != set(labels):
+        issues.append("orphan reference or citation without a reference")
+    for kind, expected in (("Fig.", list(range(1, 8))), ("Table", list(range(1, 5)))):
+        mentions = re.findall(rf"{re.escape(kind)}\s+(\d+)\b", body)
+        if list(dict.fromkeys(int(n) for n in mentions)) != expected:
+            issues.append(f"{kind} numbering is not in first-citation order")
 
     # results files exist
     for f in os.listdir(PROC):

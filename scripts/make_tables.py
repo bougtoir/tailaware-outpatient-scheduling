@@ -34,21 +34,45 @@ def main():
                   left_on="policy_id", right_on="policy", how="left").drop(columns="policy")
     t2.to_csv(os.path.join(PROC, "table2_policies.csv"), index=False)
 
-    # Table 3: representative performance (focal specs x policies)
+    # Table 3: representative performance (focal spec, readable columns)
     pp = pd.read_csv(os.path.join(PROC, "policy_performance.csv"))
-    foc = ["gamma_cv10", "lognormal_cv15", "mixture_p10_cv10", "pareto_a35"]
-    cols = ["spec", "policy", "E_W_mean", "Q95_W_mean", "E_p_wait30",
-            "E_idle", "E_overtime", "P_overtime_gt0", "E_cost",
-            "regret_abs", "regret_rel"]
-    t3 = pp[pp.spec.isin(foc)][cols].round(3)
+    pname = {"fixed_mean": "Fixed mean-based", "fixed_conservative": "Fixed conservative",
+             "quantile": "Quantile-based", "class_based": "Class-based",
+             "opt_uniform": "Optimized uniform", "opt_nonuniform": "Optimized nonuniform",
+             "tail_aware": "Tail-aware (CVaR)", "dro": "DRO uniform", "oracle": "Oracle"}
+    foc = "lognormal_cv15"
+    t3 = pp[pp.spec == foc].copy()
+    t3["Policy"] = t3.policy.map(pname)
+    t3 = t3.assign(
+        **{"E[wait] (min)": t3.E_W_mean.round(1),
+           "P(wait>30 min) (%)": (100 * t3.E_p_wait30).round(1),
+           "E[idle] (min)": t3.E_idle.round(1),
+           "E[overtime] (min)": t3.E_overtime.round(1),
+           "E[cost]": t3.E_cost.round(0),
+           "Regret vs oracle (%)": (100 * t3.regret_rel)
+               .where(lambda v: v.abs() >= 0.05, 0.0).round(1)})
+    t3 = t3[["Policy", "E[wait] (min)", "P(wait>30 min) (%)", "E[idle] (min)",
+             "E[overtime] (min)", "E[cost]", "Regret vs oracle (%)"]]
     t3.to_csv(os.path.join(PROC, "table3_performance.csv"), index=False)
 
-    # Table 4: complexity vs benefit summary
+    # Table 4: simplicity summary — concrete descriptors, not scored complexity
+    impl = {"fixed_mean": "one scalar (E[S])", "fixed_conservative": "one scalar (E[S]+slack)",
+            "quantile": "one scalar (quantile)", "class_based": "scalar per class",
+            "opt_uniform": "one scalar, SAA-optimized", "opt_nonuniform": "N-1 intervals, SAA-optimized",
+            "tail_aware": "one scalar, E+CVaR objective", "dro": "one scalar, ambiguity-set worst case",
+            "oracle": "full distribution, N-1 intervals"}
     t4 = (pp.groupby("policy")
             .agg(mean_regret_rel=("regret_rel", "mean"),
-                 max_regret_rel=("regret_rel", "max"),
-                 complexity=("complexity", "first"))
-            .reset_index().sort_values("mean_regret_rel").round(4))
+                 max_regret_rel=("regret_rel", "max"))
+            .reset_index().sort_values("mean_regret_rel"))
+    info = dict(zip(t2.policy_id, t2["Information required"]))
+    t4["Policy"] = t4.policy.map(pname)
+    t4["Information required"] = t4.policy.map(info)
+    t4["Implementation"] = t4.policy.map(impl)
+    t4["Mean regret (%)"] = (100 * t4.mean_regret_rel).where(lambda v: v.abs() >= 0.05, 0.0).round(1)
+    t4["Max regret (%)"] = (100 * t4.max_regret_rel).where(lambda v: v.abs() >= 0.05, 0.0).round(1)
+    t4 = t4[["Policy", "Information required", "Implementation",
+             "Mean regret (%)", "Max regret (%)"]]
     t4.to_csv(os.path.join(PROC, "table4_complexity.csv"), index=False)
     print("tables done")
 

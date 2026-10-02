@@ -1,6 +1,6 @@
 """Phase 21: submission extras — supplement docx, cover letter, highlights,
 title page, declarations, data/code availability statement."""
-import os
+import os, sys
 import pandas as pd
 from docx import Document
 from docx.shared import Inches
@@ -12,31 +12,40 @@ MAN = os.path.join(ROOT, "manuscript")
 os.makedirs(MAN, exist_ok=True)
 
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from docx_math import add_para, set_document_fonts, add_caption
+
+
 def supplement():
     doc = Document()
+    set_document_fonts(doc)
     doc.add_heading("Supplementary Material", 0)
-    doc.add_paragraph(
-        "Supplement to: When Do Fixed Appointment Slots Fail? Service-Time "
-        "Tail Risk, Scheduling Regret, and Robust Outpatient Operations")
+    add_para(doc,
+        "Supplement to: Service-Time Distributional Uncertainty in Outpatient "
+        "Scheduling: When Simple Interval Optimization Is Enough")
     doc.add_heading("S1. Full performance table", 1)
     perf = pd.read_csv(os.path.join(PROC, "policy_performance.csv"))
-    doc.add_paragraph(
+    add_para(doc,
         f"policy_performance.csv contains {len(perf)} rows: 10 service-time "
         "specs x 9 policies, evaluated on 100,000 sessions each (fresh draws).")
     doc.add_heading("S2. Delay cascade", 1)
-    doc.add_paragraph(
+    add_para(doc,
         "A single 45-min consultation injected at successive positions; "
-        "cascade length = downstream appointments with >1 min added waiting.")
-    doc.add_picture(os.path.join(FIG, "figS1_cascade.png"), width=Inches(5))
+        "cascade length = downstream appointments with $>1$ min added waiting (Figure 6).")
+    doc.add_picture(os.path.join(FIG, "fig6_cascade.png"), width=Inches(5))
+    add_caption(doc, "Figure 6.", "Delay cascade from a single injected 45-min consultation.")
     doc.add_heading("S3. Estimation uncertainty", 1)
-    doc.add_paragraph(
-        "Moment-fitted gamma design vs historical sample size n; Q90 regret "
-        "over 400 replications per cell.")
-    doc.add_picture(os.path.join(FIG, "figS2_estimation.png"), width=Inches(5.5))
+    add_para(doc,
+        "Moment-fitted gamma design vs historical sample size $n$; "
+        "$\mathrm{Q}_{90}$ regret over 400 replications per cell (Figure S1).")
+    doc.add_picture(os.path.join(FIG, "figS1_estimation.png"), width=Inches(5.5))
+    add_caption(doc, "Figure S1.", "Moment-fitted gamma design regret vs historical sample size $n$.")
     doc.add_heading("S4. Operational robustness", 1)
-    doc.add_paragraph(
-        "Fixed vs tail-aware designs under no-shows (p in {0,.05,.10,.20}) and "
-        "arrival jitter (sd 0 or 2 min). See operational_robustness.csv.")
+    add_para(doc,
+        "Fixed vs tail-aware designs under no-shows "
+        "($p \in \\{0, .05, .10, .20\\}$) and arrival jitter (sd 0 or 2 min). "
+        "See operational_robustness.csv.")
+    set_document_fonts(doc)
     doc.save(os.path.join(MAN, "supplement.docx"))
 
 
@@ -49,21 +58,21 @@ def main():
     supplement()
     text_file("cover_letter.md", """Dear Editors,
 
-We submit "When Do Fixed Appointment Slots Fail? Service-Time Tail Risk,
-Scheduling Regret, and Robust Outpatient Operations" for consideration in
-Omega.
+We submit "Service-Time Distributional Uncertainty in Outpatient
+Scheduling: When Simple Interval Optimization Is Enough" for consideration
+in Omega.
 
 Appointment scheduling is a core operations problem in outpatient care, yet
 the standard design rule — fixed slots equal to mean consultation time — is
 rarely stress-tested against the distributional shape of service times. This
 paper isolates that mechanism: holding the service-time mean fixed, we show
-that tail structure alone determines whether mean-based slots fail,
-quantifying scheduling regret across distribution families and a true x
-assumed misspecification matrix. Methodologically, we combine finite-horizon
-delay recursions, SAA policy optimization, distributionally robust and
-CVaR-aware benchmarks; managerially, we deliver a two-descriptor decision map
-telling a clinic when fixed slots suffice and when a one-parameter optimized
-interval is warranted.
+that distributional uncertainty matters, yet essentially all attainable
+scheduling benefit is recovered by a single SAA-optimized uniform interval
+— a management-science result about the value of information and complexity
+rather than a call for maximal algorithmic sophistication. Misspecifying
+the service-time family can erase these gains (under-designing is on
+average ~3x as costly as over-designing), so the operational priority is
+estimating the distribution well enough to calibrate one scalar interval.
 
 The work speaks to Omega's operations-analytics audience: a problem-driven
 stochastic model, extensive computational evidence, and decision rules that
@@ -72,11 +81,14 @@ reproducible from the accompanying code package.
 
 [Author names, affiliations, and signature to be completed by authors.]
 """)
-    text_file("highlights.md", """- Fixed mean-based slots cause large scheduling regret under tail variability
-- Tail shape, not the mean, drives finite-session delay propagation
-- A single optimized interval recovers nearly all attainable benefit
-- Misspecified service-time families can cost more than no optimization
-- A two-descriptor map says when tail-aware scheduling is justified
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from build_manuscript import numbers, pct
+    _n = numbers()
+    text_file("highlights.md", f"""- Fixed mean-based slots incur {pct(_n['fm_regret_rel_min'])}-{pct(_n['fm_regret_rel_max'])} relative regret at N=30
+- A single optimized uniform interval caps regret at {pct(_n['uni_regret_rel_max'])} vs oracle
+- Tail shape matters beyond the mean in finite-session delay propagation
+- Wrong-family intervals can cost more than no optimization at all
+- Light-tailed designs stabilize by ~250 observations; Pareto a=2.5 does not
 """)
     text_file("declarations.md", """# Declarations (drafts for author review — no content invented)
 

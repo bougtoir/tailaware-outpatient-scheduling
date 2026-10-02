@@ -13,6 +13,8 @@ CANDIDATES = [
     ("Lindley The theory of queues with a single server Proceedings of the Cambridge Philosophical Society 1952", "Lindley recursion"),
     ("Soriano Comparison of two scheduling policies Operations Research 1966", "appointment scheduling"),
     ("Cayirli Veral Outpatient scheduling in health care a review of literature Production and Operations Management 2003", "review"),
+    ("Bauerhenne Kolisch Schulz Robust appointment scheduling waiting time guarantees Manufacturing Service Operations Management", "robust scheduling 2026"),
+    ("van Eekelen den Hertog van Leeuwaarden Distributionally robust appointment scheduling independent service times Production Operations Management 2025", "distributionally robust scheduling 2025"),
     ("Gupta Denton Appointment scheduling in health care challenges and opportunities IIE Transactions 2008", "review"),
     ("Robinson Chen Scheduling doctor's appointments optimal and empirically-based heuristic policies IIE Transactions 2003", "heuristic appointment rules"),
     ("Denton Gupta A sequential bounding approach for optimal appointment scheduling IIE Transactions 2003", "stochastic programming"),
