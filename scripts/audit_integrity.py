@@ -4,6 +4,7 @@ provenance map for every numerical claim in the manuscript."""
 import os, re, sys
 import pandas as pd
 from citations import cited_numbers
+from make_inline_docx import FIG_CAPTIONS, TABLES
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAN = os.path.join(ROOT, "manuscript")
@@ -43,7 +44,7 @@ def main():
 
     # figure files exist and are cited
     figs = [f for f in os.listdir(os.path.join(ROOT, "figures")) if f.endswith(".pdf")]
-    for i in range(1, 8):
+    for i in range(1, len(FIG_CAPTIONS) + 1):
         if not any(f"fig{i}_" in f for f in figs):
             issues.append(f"main figure {i} pdf missing")
         if f"Fig. {i}" not in md and f"Fig {i}" not in md and "Figs" not in md:
@@ -61,7 +62,7 @@ def main():
             issues.append(f"figure {f} not cited")
 
     # tables cited
-    for t in [1, 2, 3, 4]:
+    for t in range(1, len(TABLES) + 1):
         if f"Table {t}" not in md:
             issues.append(f"Table {t} not cited")
 
@@ -74,7 +75,8 @@ def main():
         issues.append("reference list and first-citation order are not consecutive")
     if set(cited) != set(labels):
         issues.append("orphan reference or citation without a reference")
-    for kind, expected in (("Fig.", list(range(1, 8))), ("Table", list(range(1, 5)))):
+    for kind, expected in (("Fig.", list(range(1, len(FIG_CAPTIONS) + 1))),
+                           ("Table", list(range(1, len(TABLES) + 1)))):
         mentions = re.findall(rf"{re.escape(kind)}\s+(\d+)\b", body)
         if list(dict.fromkeys(int(n) for n in mentions)) != expected:
             issues.append(f"{kind} numbering is not in first-citation order")

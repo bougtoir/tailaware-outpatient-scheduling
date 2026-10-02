@@ -7,6 +7,7 @@ from docx import Document
 from docx.oxml.ns import qn
 from lxml import etree
 from citations import cited_numbers
+from make_inline_docx import FIG_CAPTIONS
 
 ROOT = Path(__file__).resolve().parents[1]
 MAN = ROOT / "manuscript"
@@ -37,6 +38,12 @@ def verify_fonts(path):
                     if "typeface" in font.attrib:
                         assert font.get("typeface") == "Times New Roman"
     doc = Document(path)
+    for paragraph in doc.paragraphs:
+        assert all("\n" not in run.text and "\r" not in run.text for run in paragraph.runs)
+    for table in doc.tables:
+        for cell in table._cells:
+            for paragraph in cell.paragraphs:
+                assert all("\n" not in run.text and "\r" not in run.text for run in paragraph.runs)
     for style in doc.styles:
         size = style.element.find("./" + qn("w:rPr") + "/" + qn("w:sz"))
         expected = "36" if style.name in ("Title", "Title Char") else "24"
@@ -101,16 +108,17 @@ def verify_figures(doc):
             continue
         for match in re.finditer(r"Fig\.\s+(\d+)\b", text):
             first.setdefault(int(match.group(1)), i)
-    assert placed == list(range(1, 8)), placed
-    assert not any("Figure S" in p.text for p in doc.paragraphs)
+    expected = list(range(1, len(FIG_CAPTIONS) + 1))
+    assert placed == expected, placed
+    assert list(first) == expected, first
+    assert not any(re.search(r"(?:Fig(?:ure)?\.?|Table)\s+S\d+", p.text) for p in doc.paragraphs)
 
 
 def main():
-    for name in ("manuscript.docx", "manuscript_inline.docx", "supplement.docx"):
+    for name in ("manuscript.docx", "manuscript_inline.docx", "cover_letter.docx"):
         doc = verify_fonts(MAN / name)
-        if name != "supplement.docx":
+        if name != "cover_letter.docx":
             verify_references(doc)
-        if name == "manuscript_inline.docx":
             verify_figures(doc)
         print(name, "PASS")
 

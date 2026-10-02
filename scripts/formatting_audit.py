@@ -3,6 +3,8 @@ import argparse
 import hashlib
 import json
 import re
+import subprocess
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -159,6 +161,12 @@ def freeze():
 
 
 def verify():
+    if (QC / "integrated_architecture_baseline.json").exists():
+        subprocess.run(
+            [sys.executable, str(ROOT / "scripts/integrated_architecture.py"), "verify"],
+            check=True,
+        )
+        return
     data = json.loads(BASELINE.read_text())
     rows = [
         "# Content preservation diff", "",

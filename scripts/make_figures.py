@@ -1,7 +1,7 @@
 """Phase 13: programmatic Omega figures (vector PDF + PNG preview).
 Fig1 same mean / different tails; Fig2 delay propagation; Fig3 fixed-slot
-regret surface; Fig4 misspecification matrix; Fig5 Pareto frontier;
-Fig6 delay cascade; Fig7 value-of-optimization map."""
+regret surface; Fig4 misspecification matrix; Fig5 estimation uncertainty;
+Fig6 Pareto frontier; Fig7 delay cascade; Fig8 value-of-optimization map."""
 import os, sys
 import numpy as np
 import pandas as pd
@@ -94,7 +94,7 @@ def fig4():
     save(fig, "fig4_misspec_matrix")
 
 
-def fig5():
+def fig6():
     df = pd.read_csv(os.path.join(PROC, "pareto_sweep.csv"))
     perf = pd.read_csv(os.path.join(PROC, "policy_performance.csv"))
     fig, (ax, ax2) = plt.subplots(1, 2, figsize=(9.0, 3.2))
@@ -117,10 +117,10 @@ def fig5():
     ax2.set_ylabel("E[overtime] (min/session)")
     ax2.set_title("Idle vs overtime decomposition")
     fig.tight_layout()
-    save(fig, "fig5_pareto")
+    save(fig, "fig6_pareto")
 
 
-def fig7():
+def fig8():
     df = pd.read_csv(os.path.join(PROC, "decision_map.csv"))
     df = df[df.N == 30]
     fig, ax = plt.subplots(figsize=(6.2, 3.4))
@@ -134,19 +134,19 @@ def fig7():
     ax.set_ylabel("Q95 / mean")
     ax.set_title("Value-of-optimization map (bubble = fixed-slot relative regret, N=30)")
     ax.legend(frameon=False)
-    save(fig, "fig7_decision_map")
+    save(fig, "fig8_decision_map")
 
 
-def fig6():
+def fig7():
     df = pd.read_csv(os.path.join(PROC, "delay_cascade.csv"))
     fig, ax = plt.subplots(figsize=(5.5, 3))
     ax.bar(df["shock_pos"].astype(str), df["cascade_len"])
     ax.set_xlabel("Position of 45-min shock consultation")
     ax.set_ylabel("Cascade length (downstream positions, ΔW>1 min)")
-    save(fig, "fig6_cascade")
+    save(fig, "fig7_cascade")
 
 
-def figS1():
+def fig5():
     df = pd.read_csv(os.path.join(PROC, "estimation_uncertainty.csv"))
     fig, ax = plt.subplots(figsize=(6, 3.2))
     for name, g in df.groupby("true"):
@@ -156,10 +156,10 @@ def figS1():
     ax.set_xlabel("Historical sample size n")
     ax.set_ylabel("Q90 of estimation regret")
     ax.legend(ncol=2, frameon=False)
-    save(fig, "figS1_estimation")
+    save(fig, "fig5_estimation")
 
 
 if __name__ == "__main__":
-    for f in [fig1, fig2, fig3, fig4, fig5, fig6, fig7, figS1]:
+    for f in [fig1, fig2, fig3, fig4, fig5, fig6, fig7, fig8]:
         f()
         print(f.__name__, "ok")

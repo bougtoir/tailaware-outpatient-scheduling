@@ -1,6 +1,6 @@
 # Omega revision baseline (R0)
 
-Commit: `71a2177cf2`
+Commit: `72109a96b3`
 
 | file                                             | exists   | sha256_16        | class   |
 |:-------------------------------------------------|:---------|:-----------------|:--------|
@@ -9,8 +9,8 @@ Commit: `71a2177cf2`
 | src/schedsim/policies.py                         | True     | 77f43502f141b604 | KEEP    |
 | src/schedsim/mixture.py                          | True     | 2e030c3c0b27aef8 | KEEP    |
 | tests/test_sim.py                                | True     | fd8b3ee2ef5416f0 | KEEP    |
-| Makefile                                         | True     | ebab0e8c797ffbf8 | KEEP    |
-| manuscript/manuscript.md                         | True     | cf68e3e875ba81aa | KEEP    |
+| Makefile                                         | True     | f946c67ae6bdd144 | KEEP    |
+| manuscript/manuscript.md                         | True     | 7129ab62ca1fab59 | KEEP    |
 | manuscript/highlights.md                         | True     | ae8cb7c4bc0dffb9 | KEEP    |
 | results/processed/decision_map.csv               | True     | be5b0209a4005588 | KEEP    |
 | results/processed/delay_cascade.csv              | True     | dbed840328c22963 | KEEP    |

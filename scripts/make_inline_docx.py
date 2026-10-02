@@ -1,6 +1,4 @@
-"""Build manuscript_inline.docx: full text with figures embedded immediately
-after the paragraph where they are first cited, and Tables 1-4 inserted at
-their first-citation points (or appended if uncited)."""
+"""Build both main DOCX files with every object after its first citation."""
 import os, re, sys
 import pandas as pd
 from docx import Document
@@ -23,9 +21,10 @@ FIG_CAPTIONS = {
     "fig2_delay_propagation": ("Figure 2.", "Finite-session delay propagation under fixed mean-based slots ($x = E[S]$)."),
     "fig3_regret_surface": ("Figure 3.", "Fixed mean-based slot relative regret across families and CV, by session size $N$."),
     "fig4_misspec_matrix": ("Figure 4.", "True x assumed distribution matrix: excess cost of misspecification."),
-    "fig5_pareto": ("Figure 5.", "Waiting vs idle+overtime trade-off under the uniform-interval sweep."),
-    "fig6_cascade": ("Figure 6.", "Delay cascade from a single injected 45-min consultation."),
-    "fig7_decision_map": ("Figure 7.", "Value-of-optimization map (bubble size = fixed-slot relative regret, $N=30$)."),
+    "fig5_estimation": ("Figure 5.", "Moment-fitted gamma design regret vs historical sample size $n$: $\mathrm{Q}_{90}$ regret over 400 replications per cell."),
+    "fig6_pareto": ("Figure 6.", "Waiting vs idle+overtime trade-off under the uniform-interval sweep."),
+    "fig7_cascade": ("Figure 7.", "Delay cascade from a single injected 45-min consultation; cascade length counts downstream appointments with $>1$ min added waiting."),
+    "fig8_decision_map": ("Figure 8.", "Value-of-optimization map (bubble size = fixed-slot relative regret, $N=30$)."),
 }
 
 TABLES = [
@@ -145,11 +144,12 @@ def main():
         else:
             para_lines.append(b.strip())
     flush_para()
-    for t in pending_tables:
-        add_table(doc, os.path.join(PROC, t[1]), t[0], t[2])
+    assert not pending_tables, pending_tables
+    assert placed_figs == set(FIG_CAPTIONS), set(FIG_CAPTIONS) - placed_figs
     out = os.path.join(MAN, "manuscript_inline.docx")
     set_document_fonts(doc)
     doc.save(out)
+    doc.save(os.path.join(MAN, "manuscript.docx"))
     print("wrote", out, "figs placed:", sorted(placed_figs))
 
 

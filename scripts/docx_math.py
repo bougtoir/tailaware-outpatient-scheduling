@@ -207,6 +207,7 @@ def _set_black_text_colors(root):
 def add_caption(doc, label, text, size=10):
     """'Figure N.'/'Table N.' bold + caption normal, both at `size` pt."""
     p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(12)
     r = p.add_run(label + ' ')
     r.bold = True
     r.font.size = Pt(size)

@@ -1,6 +1,6 @@
 PY = python3
 
-.PHONY: all sim figs tables manuscript qc test clean
+.PHONY: all sim figs tables manuscript qc test clean clean-documents package-integrated
 
 all: sim figs tables manuscript qc
 
@@ -24,6 +24,9 @@ manuscript:
 	$(PY) scripts/make_inline_docx.py
 	$(PY) scripts/revision_audits.py
 
+package-integrated: manuscript
+	$(PY) scripts/package_integrated_submission.py
+
 qc:
 	$(PY) -m pytest tests -q
 	$(PY) scripts/audit_integrity.py
@@ -37,3 +40,6 @@ test:
 
 clean:
 	rm -f results/processed/*.csv figures/*.pdf figures/*.png manuscript/*.docx manuscript/manuscript.md
+
+clean-documents:
+	rm -f manuscript/*.docx manuscript/manuscript.md

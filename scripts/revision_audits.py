@@ -165,7 +165,7 @@ dmcols = dm.columns.tolist()
 with open(os.path.join(QC, "decision_map_audit.md"), "w") as f:
     f.write("# Decision map audit (R6)\n\n")
     f.write(f"Columns: {dmcols}\n\n")
-    f.write("Figure 7 plots scenario regret across CV / Q95/mean / N with "
+    f.write("Figure 8 plots scenario regret across CV / Q95/mean / N with "
             "bubble = fixed-slot relative regret. It maps WHERE optimization "
             "value concentrates, not WHICH policy to choose - retitle as "
             "Optimization-Opportunity / Value-of-Optimization map.\n")

@@ -13,8 +13,34 @@ make clean && make all
 ```
 
 `make all` runs: `sim` (all Monte Carlo experiments) -> `figs` -> `tables`
--> `manuscript` (manuscript.docx/.md, supplement.docx, cover letter,
-highlights, declarations) -> `qc` (unit tests + integrity audit).
+-> `manuscript` (the two main DOCX files, manuscript.md, cover letter,
+highlights, and declarations) -> `qc` (unit tests + integrity audit).
+
+To rebuild the integrated documents while preserving frozen simulations:
+
+```bash
+make clean-documents && make manuscript qc
+python scripts/formatting_audit.py verify
+python scripts/audit_citation_architecture.py
+python scripts/integrated_architecture.py verify
+```
+
+Both main DOCX files contain all eight main figures and four main tables.
+No supplementary DOCX is needed; exhaustive performance and operational
+robustness CSVs accompany the new package in `data/`. Previous packages
+are retained. Current official Omega upload and length rules still require
+human verification; see `qc/omega_figure_table_limits.md`.
+
+Create the separate integrated submission archive without rerunning simulations:
+
+```bash
+make package-integrated qc
+```
+
+The archive is `output/omega_submission_package_FINAL_INTEGRATED.zip`. It contains
+both main DOCX files, cover letter, highlights, declarations, eight figure PDFs
+in `figures/`, four displayed table CSVs in `tables/`, and exhaustive performance
+and robustness CSVs in `data/`. Previous submission archives are preserved.
 
 ## Layout
 
@@ -26,8 +52,8 @@ highlights, declarations) -> `qc` (unit tests + integrity audit).
   build_manuscript.py, build_literature.py, audit_integrity.py)
 - `tests/` — hand-checkable mathematical validation cases
 - `results/processed/` — all result CSVs
-- `figures/` — fig1–fig6 (PDF+PNG), figS1–S2
-- `manuscript/` — manuscript.docx/.md, supplement.docx, cover_letter.md,
+- `figures/` — fig1–fig8 (PDF+PNG)
+- `manuscript/` — manuscript.docx/.md, manuscript_inline.docx, cover_letter.md,
   highlights.md, declarations.md
 - `literature/literature_matrix.csv` — Crossref-verified references
 - `docs/`, `qc/`, `handoffs/` — audit trail (see FINAL_OMEGA_HANDOFF.md)

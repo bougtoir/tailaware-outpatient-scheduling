@@ -1,2 +1,3 @@
 data/raw/reference_metadata/*/*.json -text
 data/raw/reference_metadata/*/*.html -text -diff
+data/raw/omega_guidance/*/*.html -text -diff

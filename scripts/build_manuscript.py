@@ -144,16 +144,14 @@ scheduling regret, and ask which simple, measurable policy classes recover
 most of the attainable benefit.
 
 Outpatient appointment scheduling dates to Bailey [@bailey1952] and Welch and
-Bailey [@welch1952], with the stochastic core traceable to Lindley [@lindley1952] and
-early policy comparisons by Soriano [@soriano1966]; modern reviews include Cayirli
-and Veral [@cayirli2003], Cayirli et al. [@cayirli2006], Gupta and Denton [@gupta2008], and
+Bailey [@welch1952]; modern reviews include Cayirli
+and Veral [@cayirli2003], Gupta and Denton [@gupta2008], and
 Ahmadi-Javid et al. [@ahmadijavid2017]. Optimal interval design under known stochastic
-service times is well studied [@denton2003;kaandorp2007;begen2011],
-as are heuristic rules [@robinson2003], unpunctuality and
-interruptions [@klassen2013;deceuninck2018],
-no-shows and overbooking [@hassin2008;muthuraman2008;zacharias2014], and service-time
+service times is well studied [@denton2003;kaandorp2007],
+as are heuristic rules, unpunctuality and interruptions,
+no-shows and overbooking, and service-time
 variability [@salzarulo2011]. Distributionally robust and conic
-designs hedge against limited distributional information [@mak2015;vaneekelen2024;bauerhenne2026].
+designs hedge against limited distributional information [@mak2015;vaneekelen2024].
 
 What is less developed is an interpretable mapping from distributional
 shape — and distributional *misspecification* — to the value of scheduling
@@ -212,7 +210,7 @@ $R(\pi) = C(\pi) - C(\pi^*)$ and relative regret $R(\pi)/C(\pi^*)$
 Policies evaluated (Table 2), resting on CVaR and robust-optimization machinery
 [@rockafellar2000;bertsimas2004;rahimian2022], with general scheduling foundations in Pinedo [@pinedo2011],
 span: fixed mean-based slots; a conservative
-fixed slot (mean plus slack); a quantile-based slot; a class-based rule using
+fixed slot (mean plus slack) [@soriano1966;robinson2003]; a quantile-based slot; a class-based rule using
 mixture-component labels where such classes are observable; SAA-optimized
 uniform and nonuniform intervals; a CVaR-penalized tail-aware uniform
 interval [@rockafellar2000]; a distributionally robust (DRO) uniform interval
@@ -237,7 +235,7 @@ from SAA design draws), reporting Monte Carlo standard errors. Designs
 span $N \in \{{20, 30, 50\}}$ and $\mathrm{{CV}} \in [0.25, 2.0]$ with
 boundary refinement where regret surfaces curve. In the misspecification
 study the designing distribution differs from the generating distribution
-in family, parameters, or both. For estimation uncertainty (Supplementary Fig. S1) we draw
+in family, parameters, or both. For estimation uncertainty we draw
 $n \in \{{50,\dots,1000\}}$ historical service times,
 fit a gamma by moments, and evaluate the implied optimal uniform interval;
 the fitted-CV-to-interval map is itself a precomputed SAA table kept in the
@@ -246,7 +244,9 @@ than significance tests, which are uninformative at these sample sizes.
 
 Operational robustness additionally varies no-show probabilities and
 arrival jitter, reflecting established appointment models with absences
-and unpunctuality [@hassin2008;muthuraman2008;deceuninck2018].
+and unpunctuality [@hassin2008;muthuraman2008;zacharias2014;deceuninck2018].
+The no-show probabilities are $p \in \{{0, .05, .10, .20\}}$ and
+arrival jitter has sd 0 or 2 min.
 
 ## 4. Results
 
@@ -289,7 +289,8 @@ Optimizing the interval under a wrongly assumed family is not free insurance
 to the correctly specified design — more than the gap between fixed slots
 and the oracle for several true distributions. Under-designing (assuming a
 lower-CV family than the truth) is consistently worse than over-designing.
-With moment-fitted gamma designs, median estimation regret is already small
+
+With moment-fitted gamma designs (Fig. 5), median estimation regret is already small
 at $n = 250$ ({est250:.2f} cost units; Q90 {est250q:.2f}) versus $n = 50$
 ({est50:.2f}); the gains from $n$ beyond ~500 are minor for light-tailed
 families. The exception is the genuinely heavy-tailed Pareto $\alpha =
@@ -316,7 +317,7 @@ estimated family, not distributionally robust behavior per se; the
 misspecification study in Section 4.3 is what measures model risk.
 Conservative fixed slots (mean + 25%) recover much of the gap but at
 materially higher idle time. The interval sweep traces the
-waiting–idle/overtime frontier (Fig. 5); all optimized policies sit on or
+waiting–idle/overtime frontier (Fig. 6); all optimized policies sit on or
 near that frontier, so the choice reduces to where on the frontier the cost
 weights place the clinic.
 The pattern is stable under cost weights ranging (1,1,1) to (1,2,6): the
@@ -331,14 +332,14 @@ lower effective load, narrowing the gap between policies.
 
 A single 45-min consultation injected mid-session produces a delay cascade
 lasting {cascade_len} subsequent appointments and {cascade_cum:.0f} min of
-extra cumulative waiting (Fig. 6). Early-session shocks are costlier in
+extra cumulative waiting (Fig. 7). Early-session shocks are costlier in
 aggregate waiting; end-of-session shocks convert to overtime instead.
 
 ### 4.6 Value-of-optimization map
 
 Plotting fixed-slot regret over (CV, $\mathrm{{Q}}_{{95}}/\mathrm{{mean}}$)
 for each family yields a
-compact map of where optimization value concentrates (Fig. 7): there is no
+compact map of where optimization value concentrates (Fig. 8): there is no
 corner of the explored space where mean-based slots are competitive, and
 the benefit of optimization rises sharply with session size and tail ratio
 — exactly where a clinic should adopt the one-parameter optimized uniform
@@ -398,7 +399,7 @@ but that generalization is a conjecture, not a result. Validation on
 measured consultation-time data and multi-provider extensions are natural
 next steps.
 These extensions address operational features emphasized in the broader
-appointment-scheduling literature [@cayirli2003;cayirli2006;gupta2008;ahmadijavid2017;wang2015].
+appointment-scheduling literature [@cayirli2003;cayirli2006;gupta2008;ahmadijavid2017;wang2015;klassen2013].
 
 ## 6. Conclusion
 

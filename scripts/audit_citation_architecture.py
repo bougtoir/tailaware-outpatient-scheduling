@@ -8,6 +8,7 @@ from docx.oxml.ns import qn
 from build_manuscript import MANUSCRIPT_MD
 from citations import cited_numbers
 from formatting_audit import visible_text
+from make_inline_docx import TABLES
 from verify_docx import verify_figures, verify_fonts, verify_references
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -64,7 +65,8 @@ def verify_tables(doc):
         else:
             for mention in re.finditer(r"Table (\d+)\b", text):
                 first.setdefault(int(mention.group(1)), index)
-    assert captions == [1, 2, 3, 4], captions
+    assert captions == list(range(1, len(TABLES) + 1)), captions
+    assert list(first) == captions, first
 
 
 def main():
@@ -90,10 +92,9 @@ def main():
         assert all(not re.search(r"\bnan\b", text, flags=re.IGNORECASE) for text in entries)
         cited = list(cited_numbers(" ".join(body)))
         assert list(dict.fromkeys(cited)) == list(range(1, 31)), name
-        assert "Supplementary Fig. S1" in " ".join(body)
-        if name == "manuscript_inline.docx":
-            verify_figures(doc)
-            verify_tables(doc)
+        assert not re.search(r"(?:Supplementary|Fig\. S\d|Figure S\d|Table S\d)", " ".join(body))
+        verify_figures(doc)
+        verify_tables(doc)
         rows.append(
             f"- {name}: PASS — 30 references, no orphan/duplicate/missing entries, "
             "first-appearance numbering 1–30, canonical two-number/range syntax, "
@@ -104,22 +105,14 @@ def main():
             "slots; no theme font/color attributes; explicit black text; title 18 pt, "
             "ordinary styles 12 pt and figure/table captions 10 pt."
         )
-    supplement = verify_fonts(MAN / "supplement.docx")
-    supp_text = " ".join(visible_text(p._element) for p in supplement.paragraphs)
-    assert not list(cited_numbers(supp_text))
-    assert "References" not in [p.text for p in supplement.paragraphs]
-    assert "Figure S1" in supp_text and "S3. Estimation uncertainty" in supp_text
-    assert "Figure 6" in supp_text and "S2. Delay cascade" in supp_text
-    assert len(supplement.inline_shapes) == 2
+    assert not (MAN / "supplement.docx").exists()
     rows.extend([
-        "- supplement.docx: PASS — independently checked; no literature citations "
-        "or independent/shared reference list is present, so no numbered bibliography "
-        "is inferred or added. Figure 6 repeats the corresponding main figure; "
-        "Supplementary Figure S1 is cited in S3.",
-        "- Main-text Supplementary Fig. S1 callout resolves to S3 / Figure S1 in "
-        "the supplement. Main Figures 1–7 and Tables 1–4 follow first-mention order; "
-        "inline objects follow their first-mention paragraph, including multiple "
-        "objects first cited in the same paragraph.",
+        "- Supplement: removed after promotion of estimation uncertainty to main "
+        "Figure 5 and removal of the duplicate cascade. Unique methodological details "
+        "are in main Methods/captions; full CSV outputs remain available.",
+        "- Main Figures 1–8 and Tables 1–4 follow first-mention order in both DOCX "
+        "files; objects follow their first-mention paragraph, including multiple "
+        "objects first cited in the same paragraph. No supplementary namespace remains.",
         "- DOI set: exactly the existing 30 works; no literature added or removed.",
         "",
         "## Citation placement by stable source key", "",
@@ -132,8 +125,6 @@ def main():
             f"| {number} | {key} | {sections[0]} | {', '.join(sections[1:]) or '—'} |"
         )
     font_rows.extend([
-        f"- supplement.docx: PASS — {len(supplement.styles)} styles; independently "
-        "checked Times New Roman, black text, headings, captions, and OMML sizing.",
         "- Headers, footers, table styles, list styles, bibliography paragraphs, "
         "hyperlink styles, defaults and auxiliary XML are included in the XML traversal.",
         "- Bold/italic/superscript/subscript and native Word equations are preserved "
