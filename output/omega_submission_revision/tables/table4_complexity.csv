@@ -1,0 +1,10 @@
+Policy,Information required,Implementation,Mean regret (%),Max regret (%)
+Oracle,"true distribution (SAA, large)","full distribution, N-1 intervals",0.0,0.0
+Optimized nonuniform,full distribution (SAA),"N-1 intervals, SAA-optimized",0.0,0.0
+Optimized uniform,full distribution (SAA),"one scalar, SAA-optimized",1.2,1.4
+DRO uniform,ambiguity set (4 families),"one scalar, ambiguity-set worst case",5.3,34.6
+Fixed conservative,E[S],one scalar (E[S]+slack),8.9,18.5
+Quantile-based,"E[S], Q85[S]",one scalar (quantile),12.1,33.3
+Tail-aware (CVaR),full distribution (SAA),"one scalar, E+CVaR objective",20.3,40.8
+Class-based,"per-class means, class labels",scalar per class,51.6,64.0
+Fixed mean-based,E[S] only,one scalar (E[S]),55.0,71.3

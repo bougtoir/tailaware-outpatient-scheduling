@@ -1,0 +1,54 @@
+location,source_text,rendered_before,classification,replacement,rendered_after,status
+scripts/build_manuscript.py: service-time CV range,$\mathrm{CV} = 0.5\text{--}2.0$,CV = 0.5−−2.0,A: numeric range,$\mathrm{CV} = 0.5\text{–}2.0$,CV = 0.5–2.0,CORRECTED
+scripts/build_manuscript.py: Monte Carlo session range,"$M = 60{,}000\text{--}100{,}000$","M = 60,000−−100,000",A: numeric range,"$M = 60{,}000\text{–}100{,}000$","M = 60,000–100,000",CORRECTED
+scripts/make_tables.py: Table 1 CV grid,0.25-2.0,0.25-2.0,A: numeric range,none,0.25-2.0,RETAINED_SINGLE_SEPARATOR
+scripts/make_tables.py: Table 1 evaluation sessions,"60,000-100,000 per condition","60,000-100,000 per condition",A: numeric range,none,"60,000-100,000 per condition",RETAINED_SINGLE_SEPARATOR
+scripts/make_tables.py: Table 1 SAA samples,"4,000-12,000","4,000-12,000",A: numeric range,none,"4,000-12,000",RETAINED_SINGLE_SEPARATOR
+scripts/make_tables.py: Table 1 weight sensitivity,"(1,1,1)-(1,2,6)","(1,1,1)-(1,2,6)",A: numeric range,none,"(1,1,1)-(1,2,6)",RETAINED_SINGLE_SEPARATOR
+scripts/make_tables.py: Lindley recursion,D_i + S_i - x_i,D_i + S_i - x_i,B: mathematical subtraction,none,D_i + S_i - x_i,PRESERVED
+manuscript/manuscript.md:47,12-14,12-14,D: citation-number range,none,12-14,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:55,20-23,20-23,D: citation-number range,none,20-23,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:75,0.6–1.4,0.6–1.4,A: numeric range,none,0.6–1.4,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:87,24-27,24-27,D: citation-number range,none,24-27,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:95,3-5,3-5,D: citation-number range,none,3-5,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:95,28-30,28-30,D: citation-number range,none,28-30,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:115,185–199,185–199,A: numeric range,none,185–199,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:115,2517-6161.1952,2517-6161.1952,C: DOI/identifier syntax,none,2517-6161.1952,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:117,1105–1108,1105–1108,A: numeric range,none,1105–1108,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:117,0140-6736,0140-6736,C: DOI/identifier syntax,none,0140-6736,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:117,90763-0,90763-0,C: DOI/identifier syntax,none,90763-0,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:119,519–549,519–549,A: numeric range,none,519–549,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:119,1937-5956.2003,1937-5956.2003,C: DOI/identifier syntax,none,1937-5956.2003,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:121,800–819,800–819,A: numeric range,none,800–819,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:123,3–34,3–34,A: numeric range,none,3–34,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:125,1003–1016,1003–1016,A: numeric range,none,1003–1016,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:127,217–229,217–229,A: numeric range,none,217–229,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:127,10729-007,10729-007,C: DOI/identifier syntax,none,10729-007,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:129,848–859,848–859,A: numeric range,none,848–859,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:129,1937-5956.2010.01210,1937-5956.2010.01210,C: DOI/identifier syntax,none,1937-5956.2010.01210,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:131,316–334,316–334,A: numeric range,none,316–334,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:135,277–289,277–289,A: numeric range,none,277–289,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:137,21–41,21–41,A: numeric range,none,21–41,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:139,35–53,35–53,A: numeric range,none,35–53,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:141,1–85,1–85,A: numeric range,none,1–85,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:143,611–613,611–613,A: numeric range,none,611–613,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:143,978-1,978-1,C: DOI/identifier syntax,none,978-1,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:143,4614-2361,4614-2361,C: DOI/identifier syntax,none,4614-2361,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:145,388–397,388–397,A: numeric range,none,388–397,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:147,295–307,295–307,A: numeric range,none,295–307,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:149,711–726,711–726,A: numeric range,none,711–726,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:151,995–1009,995–1009,A: numeric range,none,995–1009,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:153,565–572,565–572,A: numeric range,none,565–572,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:155,820–837,820–837,A: numeric range,none,820–837,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:157,788–801,788–801,A: numeric range,none,788–801,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:159,195–207,195–207,A: numeric range,none,195–207,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:161,240–257,240–257,A: numeric range,none,240–257,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:163,24–37,24–37,A: numeric range,none,24–37,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:165,1522–1538,1522–1538,A: numeric range,none,1522–1538,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:167,246–260,246–260,A: numeric range,none,246–260,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:169,47–58,47–58,A: numeric range,none,47–58,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:169,10729-006,10729-006,C: DOI/identifier syntax,none,10729-006,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:169,6279-5,6279-5,C: DOI/identifier syntax,none,6279-5,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:171,700–717,700–717,A: numeric range,none,700–717,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:171,12-2014,12-2014,C: DOI/identifier syntax,none,12-2014,PRESERVED_SINGLE_SEPARATOR
+manuscript/manuscript.md:173,394–414,394–414,A: numeric range,none,394–414,PRESERVED_SINGLE_SEPARATOR

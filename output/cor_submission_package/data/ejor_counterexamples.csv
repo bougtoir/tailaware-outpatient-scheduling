@@ -1,0 +1,7 @@
+case,policy,C_eval
+nonstationary_mean_cv_halves,uniform,691.5075472632211
+nonstationary_mean_cv_halves,full_nonuniform,544.7308079381494
+high_overtime_weight_c_o8,uniform,622.9408279167877
+high_overtime_weight_c_o8,full_nonuniform,597.8953071495362
+known_heterogeneous_booking_every5th_long,uniform,412.43775482196065
+known_heterogeneous_booking_every5th_long,full_nonuniform,312.4555638152631

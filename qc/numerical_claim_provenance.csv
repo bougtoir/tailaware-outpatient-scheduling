@@ -1,0 +1,9 @@
+claim,location,reported,verified,source,status,note
+fixed_mean regret range 36.7-71.3% (min),Abstract/Results,0.367,0.3673814826826111,policy_performance.csv,PASS,"min over 10 specs, N=30"
+fixed_mean regret range max 71.3%,Abstract/Results,0.713,0.7131430070851044,policy_performance.csv,PASS,"max over 10 specs, N=30"
+mean fixed-slot regret N=20 = 0.255,Results,0.255,0.2552958682650647,decision_map.csv,PASS,mean over families x CVs (different scope than spec range)
+mean fixed-slot regret N=30 = 0.363,Results,0.363,0.36298782537444957,decision_map.csv,PASS,mean over families x CVs (different scope than spec range)
+mean fixed-slot regret N=50 = 0.493,Results,0.493,0.49342153209150674,decision_map.csv,PASS,mean over families x CVs (different scope than spec range)
+opt_uniform max regret ~1.4%,Abstract/Results,0.0144,0.0143712576540571,policy_performance.csv,PASS,"max over 10 specs, N=30"
+opt_nonuniform ~oracle,Results,0.0,0.0002058915315292,policy_performance.csv,False,max regret incl. tiny MC negatives
+under-design excess ~3x over-design,Results,3.0,3.2140845070422532,misspecification_matrix.csv,False,mean excess under/over by x_assumed vs x_true

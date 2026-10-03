@@ -1,0 +1,19 @@
+# Integrated architecture content preservation
+
+Frozen commit: `72109a96b3611b7ae804f7b8cedbc045618ea1af`. Scientific algorithms, settings and final numerical outputs are unchanged; see the micro-finishing build audit for the clean-build reproduction check.
+
+- PASS: canonical scientific source is equivalent after whitespace normalization and declared editorial/presentation transformations.
+- Declared transformations: remove keyed citations and object callouts for comparison; contract only the Introduction's Lindley/Soriano/Cayirli author-list clauses; transfer the supplement's no-show/jitter parameter sentence to Methods; normalize an ASCII double-hyphen range separator to one en dash.
+- PASS: remaining prose, terminology, scientific numeric strings, estimands, equations in source, settings, conclusions and interpretations are identical.
+- PASS: all original native Word equations survive semantically unchanged; the two range separators normalize from double hyphens to one en dash.
+- PASS: four embedded tables and their values/headings are exactly unchanged.
+- PASS: original main captions retain their content; the cascade definition and estimation-replication detail are transferred from the frozen supplement.
+- PASS: final embedded images are the unique prior main/supplement set with Figure 4 replaced only by its corrected annotation rendering; its source data are unchanged.
+- PASS: frozen files preserve SHA-256 except the two declared Figure 4 renderings; two nonscientific Markdown files preserve identical normalized tokens after removing hard wraps; four figure basenames are translated without changing bytes.
+- All prior ZIPs and staging files are unchanged; simulation code/configuration/results, reference metadata and table CSVs are unchanged.
+- Both main DOCX files contain the same scientific body, equations, tables, references and eight images.
+- Introduction references: 21 → 10; 11 works relocated; complete bibliography remains exactly 30 works.
+- Exact before/after caption, section and semantic-anchor maps are in the accompanying CSV audits.
+- No supplementary object namespace remains; main cross-references all resolve.
+
+Scientific analyses changed: NO. Numerical results changed: NO. New references: 0. Removed references: 0.
