@@ -1,0 +1,10 @@
+policy_id,Policy,Information required,complexity
+fixed_mean,Fixed mean-based,E[S] only,1
+fixed_conservative,Fixed conservative,E[S],1
+quantile,Quantile-based,"E[S], Q85[S]",2
+class_based,Class-based,"per-class means, class labels",3
+opt_uniform,Optimized uniform,full distribution (SAA),3
+opt_nonuniform,Optimized nonuniform,full distribution (SAA),4
+tail_aware,Tail-aware CVaR,full distribution (SAA),4
+dro,DRO uniform,ambiguity set (4 families),5
+oracle,Oracle nonuniform,"true distribution (SAA, large)",6

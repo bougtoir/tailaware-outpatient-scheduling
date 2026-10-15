@@ -1,0 +1,60 @@
+[
+  {
+    "url": "https://www.sciencedirect.com/journal/omega/publish/guide-for-authors",
+    "identifier": "Omega current official author instructions",
+    "retrieved_utc": "2026-10-02T10:37:21.687791+00:00",
+    "conditions": "unauthenticated HTTPS GET; journal guide recheck",
+    "destination": "data/raw/omega_guidance/20261002T103721Z/official_guide_1.html",
+    "file_size": 832803,
+    "sha256": "284369ca01dff4954de2ca080f6e31ca66008b2ed19044031c56c431bd1c03d6",
+    "http_status": 403,
+    "response_headers": {
+      "Date": "Fri, 02 Oct 2026 10:37:21 GMT",
+      "Content-Type": "text/html; charset=UTF-8",
+      "Transfer-Encoding": "chunked",
+      "Connection": "close",
+      "Cache-Control": "private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+      "Expires": "Thu, 01 Jan 1970 00:00:01 GMT",
+      "Referrer-Policy": "same-origin",
+      "X-Frame-Options": "SAMEORIGIN",
+      "Strict-Transport-Security": "max-age=2678400; preload",
+      "X-Content-Type-Options": "nosniff",
+      "set-cookie": "__cf_bm=rLsX.gvTZQ37BqV.887Eag.lbiwx9Gb5nxMS0JAJ.Ak-1790937441.737566-1.0.1.1-7CpzhlH3vw68ME2F8bxCODp4b.6VAMWg4u3MXp9AkT9MroKOk2tyVEHBXkV5idB6l3HMMwusDGQxkiyKDbfkCWQYSCCOPyJ9WUJTmyh2I1_._hkGze3kjsdDYEsFFw47; HttpOnly; SameSite=None; Secure; Path=/; Domain=sciencedirect.com; Expires=Fri, 02 Oct 2026 11:07:21 GMT",
+      "tdm-policy": "https://www.elsevier.com/tdm/tdmrep-policy.json",
+      "tdm-reservation": "1",
+      "Server": "cloudflare",
+      "CF-RAY": "a4431242d820fbe6-SEA"
+    },
+    "terms": "publisher-controlled HTML; private local snapshot; not redistributed",
+    "complete_author_instructions": false
+  },
+  {
+    "url": "https://www.elsevier.com/journals/omega/0305-0483/guide-for-authors",
+    "identifier": "Omega current official author instructions",
+    "retrieved_utc": "2026-10-02T10:37:21.792788+00:00",
+    "conditions": "unauthenticated HTTPS GET; journal guide recheck",
+    "destination": "data/raw/omega_guidance/20261002T103721Z/official_guide_2.html",
+    "file_size": 832803,
+    "sha256": "900782b75d4974cff7213443953fcb78d21d44e8795d41f59b18ee115d0af530",
+    "http_status": 403,
+    "response_headers": {
+      "Date": "Fri, 02 Oct 2026 10:37:21 GMT",
+      "Content-Type": "text/html; charset=UTF-8",
+      "Transfer-Encoding": "chunked",
+      "Connection": "close",
+      "Cache-Control": "private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+      "Expires": "Thu, 01 Jan 1970 00:00:01 GMT",
+      "Referrer-Policy": "same-origin",
+      "X-Frame-Options": "SAMEORIGIN",
+      "Strict-Transport-Security": "max-age=2678400; preload",
+      "X-Content-Type-Options": "nosniff",
+      "set-cookie": "__cf_bm=60aoJl7Xbg3Ly91bzJCM9kwUJACllOB67Tj4nco4UYI-1790937441.907641-1.0.1.1-xhudLdDncfFfpCuwPsM1DJ2sr6uo54zjbknlJLdtGJ806HtXNvi78OU9aMnFTneAwQF2XHJ.uzpUoSUtVE8FQfDlCYfNVqY9E77MHsH5z4m11etTYkXpb8BfY8Pho5gc; HttpOnly; SameSite=None; Secure; Path=/; Domain=sciencedirect.com; Expires=Fri, 02 Oct 2026 11:07:21 GMT",
+      "tdm-policy": "https://www.elsevier.com/tdm/tdmrep-policy.json",
+      "tdm-reservation": "1",
+      "Server": "cloudflare",
+      "CF-RAY": "a4431243eed8f8d1-SEA"
+    },
+    "terms": "publisher-controlled HTML; private local snapshot; not redistributed",
+    "complete_author_instructions": false
+  }
+]

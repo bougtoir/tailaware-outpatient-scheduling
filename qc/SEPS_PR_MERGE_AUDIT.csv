@@ -1,0 +1,6 @@
+order,pr,state,target_branch,prerequisite,action,reason,risk
+1,#643,open/mergeable,master,none,MERGE (or CLOSE if #684 merged first),Journal-gate evidence chain + SEPS conversion + FINAL_VERIFIED; ancestor of #684,Low — content is strict prefix of #684
+2,#684,open/mergeable,master,#643 (or nothing if #643 closed),MERGE,Superset: hostile-review repairs + bounds fix + FINAL_SUBMISSION package + all release-gate QC,Low — merge-tree vs master shows 0 conflicts
+-,#649,merged,(merged into #643 branch),-,SKIP,Already contained in #643/#684 history,None
+-,#490,merged 09-24,master,-,SKIP,Superseded Omega package; no action needed,None
+-,new doc-fix PR,to be created,master,#684 merged,HOLD (propose only),README/LICENSE/CITATION.cff/Makefile SEPS-target fixes for public repro,None — docs only
