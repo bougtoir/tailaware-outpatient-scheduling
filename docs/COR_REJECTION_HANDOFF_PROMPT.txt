@@ -1,0 +1,94 @@
+HANDOFF PROMPT — tailaware_outpatient_scheduling: post-COR-retarget handoff
+=========================================================================
+
+CONTEXT
+-------
+Manuscript: "When Does Scheduling Complexity Pay? Appointment Scheduling under
+Service-Time Distributional Uncertainty" (outpatient scheduling, finite-horizon
+Lindley recursion, service-time distributional uncertainty).
+
+Journal history:
+  1. Omega — desk rejected on scope/framing (NOT quality).
+  2. EJOR theory gate — judged EJOR-BORDERLINE (headline near-optimality already
+     proved by Zhou/Ding/Huh & Wan 2021 POM and Armony/Atar/Honnappa 2019 MOR;
+     no new proved theorem). User approved pivot to COR.
+  3. Computers & Operations Research (COR) — full submission-ready package
+     produced; outcome: REJECTED (per user message 2026-10).
+
+The science is finished and frozen. Do NOT reopen the scientific analysis.
+
+REPO STATE (private monorepo bougtoir/wip)
+----------------------------------------
+Project dir: tailaware_outpatient_scheduling/
+Canonical branch: devin/1790952023-ejor-gate (head f5417f4b)
+Sync pointer branch: devin/1790230590-omega-outpatient-scheduling (== gate head)
+Public mirror: https://github.com/bougtoir/tailaware-outpatient-scheduling
+  main @9579a2f — direct-pushed, mirrors subdir incl. final package.
+Draft PR: https://github.com/bougtoir/wip/pull/577 (all gate + COR artifacts)
+
+FROZEN / PRESERVE
+-----------------
+- Never modify frozen Omega baseline artifacts (FROZEN_BASELINE_MANIFEST.md).
+- Never overwrite: output/cor_submission_package.zip (sha256 e28cb06d…),
+  output/cor_submission_package_FINAL_READY.zip (sha256 b5b0f2789f…),
+  cor_* manuscript/docx/cover-letter files. New deliverables MUST use new names
+  and report diffs/checksums.
+- All scientific CSVs in results/ are final; numbers are injected from CSVs via
+  build scripts — never hardcode numbers in prose.
+
+KEY ARTIFACTS
+-------------
+- scripts/build_manuscript_cor.py (canonical COR manuscript generator; braced
+  .format() template + guarded .replace() edits on bm.MANUSCRIPT_MD)
+- scripts/make_figures_cor.py, scripts/make_inline_docx_cor.py,
+  scripts/make_inline_docx.py (OMML inline docx builder; tblGrid fixed widths)
+- manuscript/cor_manuscript.md/.docx, cor_manuscript_inline.docx/.pdf (21 pp),
+  cor_cover_letter.md/.docx, highlights.md, declarations.md
+- qc/: COR_QC_REPORT.md, three *_PROVENANCE.md, COR_MICRO_REVISION_CONTENT_DIFF.md
+- FINAL_COR_MICRO_REVISION_HANDOFF.md (21-item checklist; status READY)
+- Extension data: results/ejor_extension/*.csv (complexity frontier, boundary vs
+  interior, optimal vector, counterexamples, gap_vs_N; N=30, CV=1.0, 4 families,
+  3000 SAA / 20000 eval draws, explicit seeds)
+- docs/: EJOR_NOVELTY_AUDIT, EJOR_FORMAL_PROBLEM, THEORY_LEDGER,
+  EJOR_GATE_SCORECARD, EJOR_EXTENSION_ANALYSIS, JOURNAL_FALLBACK_AUDIT,
+  IJPE_CURRENT_STATUS, IJPE_POSITIONING_TEST,
+  CITATION_ECOLOGY_EJOR_COR_IJPE, JOURNAL_FIT_MATRIX_EJOR_COR_IJPE
+- literature/: normalized_references_cor.json (36 refs, first-appearance
+  numbering, zero orphans), TARGET_JOURNAL_CITATION_JUSTIFICATION.csv
+
+HEADLINE RESULTS (for framing — verified values)
+------------------------------------------------
+- Uniform optimized interval: max relative regret 1.4% vs nonuniform oracle.
+- Fixed mean slots: 36.7–71.3% relative regret at N=30; under-design ~3× over.
+- Complexity frontier: K=10/29 captures 91–97%, K=4 captures 42–61% of the
+  uniform→full gap (4 families, CV=1.0, N=30).
+- Boundary concentration (empirical, not theorem): first/last 3 positions close
+  85–95% of gap vs 3–9% interior.
+- Counterexamples (constructed stress regimes): nonstationary 27%,
+  known every-5th heterogeneity 32%, c_o=8 4%.
+- gap vs N: absolute 3.2→7.5, relative 3.7%→0.9% (N=5→50).
+
+YOUR TASK
+---------
+Phase 0: Re-freeze current state as the new baseline (record manifest;
+         do not touch prior frozen artifacts).
+Phase 1: Diagnose the COR rejection reason (user to supply editor text if
+         available — ask only if absent; otherwise infer from the fit matrix).
+Phase 2: Re-run the journal-selection gate using the existing fit matrix +
+         fallback audit as starting evidence. Candidates already profiled:
+         IJPE (BORDERLINE-weak: IF 10, needs economics-of-complexity framing;
+         Saremi 2013 precedent), EJOR (BORDERLINE: needs proved theorem, high
+         scope risk), plus previously listed backups (POM, Health Care
+         Management Science, and OR-family alternates such as OMEGA-excluded
+         venues, EJOR-short papers, OR Spectrum, Healthcare/OR-applied Q1-Q2).
+Phase 3: STOP at the gate and present 3-journal comparison + recommendation to
+         the user for approval before retargeting.
+Phase 4: On approval, run the established retarget pipeline (target-journal
+         citation ecology audit → manuscript variant via a NEW
+         build_manuscript_<journal>.py wrapping the frozen template → new
+         cover letter → reviewer-eye audit → QC → new package zip with
+         <journal>-specific name).
+All prior QA rules apply: OMML math, TNR, first-appearance figure/table
+numbering and placement, zero orphan refs, numbers from CSVs, no new analyses
+unless the target journal's bar explicitly requires it (surface that at the
+gate first).

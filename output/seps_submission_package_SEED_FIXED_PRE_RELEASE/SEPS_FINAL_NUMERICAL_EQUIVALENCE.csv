@@ -1,0 +1,17 @@
+check,frozen,new,verdict
+fixed-slot relative regret range @N=30,36.7-71.3%,seps_manuscript.md unchanged,PASS
+scenario means N=20/30/50,25.5/36.3/49.3%,unchanged,PASS
+uniform max/mean regret,1.44/1.16%,unchanged,PASS
+K=10 / K=4 residual capture,91-97% / 42-61%,unchanged,PASS
+boundary vs interior concentration,85-95% / 3-9%,unchanged,PASS
+counterexample gaps,26.9/32.0/4.2%,unchanged,PASS
+misspec max excess,446 cost units,unchanged,PASS
+under/over mean excess + ratio,"104 vs 28, ~3x",104.15 vs 28.11 = 3.71x,PASS (unchanged at render precision)
+est n=250 med/Q90; n=50 Q90,1.14/5.18; 14.11,unchanged,PASS
+Pareto a=2.5 Q90 @1000,~30 flat,unchanged,PASS
+weight-grid max,about 2.5%,unchanged,PASS
+no-show fractions,33.3% @10% / 0% @20%,unchanged,PASS
+Table-3 lognormal_cv15 wait / P>30,29.2 min / 31.2%,unchanged (exp02 fixed seed),PASS
+Figures 1-11,11 regenerated,only fig2 re-realized (exp01 cone); figs placed 11/11,PASS
+Tables 1-6,regenerated,unchanged,PASS
+seps_manuscript.md,frozen,byte-identical rebuild,PASS

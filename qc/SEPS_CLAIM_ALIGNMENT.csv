@@ -1,0 +1,9 @@
+claim,frozen_value,new_value,detail,verdict
+mis_under mean excess (cost units),104,104,exact 104.15,UNCHANGED
+mis_over mean excess (cost units),28,28,exact 28.11,UNCHANGED
+under/over ratio 'about three times',~3x,3.71x,104.15/28.11=3.71,FAITHFUL
+Table-3 lognormal_cv15 mean wait 29.2 min,29.2,29.2,source: policy_performance.csv (exp02 fixed seed),UNCHANGED
+Table-3 P(wait>30) 31.2%,31.2%,31.2%,source: policy_performance.csv (exp02 fixed seed),UNCHANGED
+Fig2 delay-propagation curves,n/a,regenerated,Q95_D new realization; qualitative shape preserved,REGENERATED
+seps_manuscript.md,frozen,rebuilt,git diff empty,BYTE-IDENTICAL
+fixed_mean_summary.csv,archive,,no downstream consumers,"DIFFERS, no impact"
