@@ -57,8 +57,9 @@ of every manuscript-linked result. For a quick smoke test run only
 (e.g. `exp01_descriptors.py`).
 
 The pinned reproduction commit is
-`b44d9f96b16d3d27fc8b4a25385ea7d7eed7a74d` — identical content to the
-current default branch.
+`b44d9f96b16d3d27fc8b4a25385ea7d7eed7a74d` — pipeline-identical to the
+current default branch (later commits only add audit snapshots and
+docs).
 
 Note: `make all` targets the older Omega build chain
 (`build_manuscript.py`); use the per-script recipe above for the SEPS
