@@ -64,6 +64,17 @@ Note: `make all` targets the older Omega build chain
 (`build_manuscript.py`); use the per-script recipe above for the SEPS
 manuscript.
 
+**Known caveat (exp01 seeds):** `scripts/exp01_descriptors.py` derives
+seeds via `hash(name)`, which is salted per Python process — its three
+output CSVs (`distribution_descriptors`, `delay_propagation`,
+`fixed_mean_summary`) are therefore not bit-reproducible across runs.
+All headline conclusions and every other pipeline stage (fixed integer
+seeds) are unaffected; the under/over-design mean-excess summary can
+shift with the realized descriptor CVs (observed: 104 vs 28 → 109 vs
+27 cost units). Fixing this requires replacing the salted seeds with
+fixed integers, which would re-realize the frozen exp01 numbers —
+deferred to the owner (see `qc/SEPS_POSTPATCH_REPRODUCTION.md`).
+
 ## Layout
 
 - `src/schedsim/` — distribution families (same-mean construction),
