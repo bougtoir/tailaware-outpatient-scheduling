@@ -1,0 +1,10 @@
+Component,Specification
+Recursion,"D1=0; D_{i+1}=max(0, D_i + S_i - x_i)"
+Session size N,"20, 30, 50 (focal 30)"
+Reference mean E[S],10 min
+Distribution families,"Gamma, Weibull, Lognormal, two-component mixture, Pareto-I (alpha=2.5,3.5)"
+CV grid,0.25-2.0
+Evaluation sessions M,"60,000-100,000 per condition"
+SAA samples for policy design,"4,000-12,000"
+"Cost weights (c_w, c_i, c_o)","(1,2,2) baseline; sensitivity (1,1,1)-(1,2,6)"
+Randomization,fixed seeds per experiment; fresh evaluation draws

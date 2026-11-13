@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Tail-aware outpatient appointment scheduling — reproduction code for \"When Does Appointment-Scheduling Complexity Pay? Service-Time Uncertainty and the Value of Simple Planning Rules\""
+authors:
+  - family-names: Onishi
+    given-names: Tatsuki
+repository-code: "https://github.com/bougtoir/tailaware-outpatient-scheduling"
+type: software
+notes: "Simulation and manuscript build pipeline. No DOI minted; journal submission pending (Socio-Economic Planning Sciences). Verified reproduction commit: b44d9f96b16d3d27fc8b4a25385ea7d7eed7a74d."

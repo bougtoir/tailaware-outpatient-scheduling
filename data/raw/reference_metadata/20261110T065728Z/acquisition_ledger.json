@@ -1,0 +1,13 @@
+[
+ {
+  "url": "https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals",
+  "identifier": "Elsevier generative AI policies for journals (web page)",
+  "retrieved_utc": "20261110T065728Z",
+  "conditions": "curl -sL with browser User-Agent; single page, complete HTML response",
+  "path": "data/raw/reference_metadata/20261110T065728Z/elsevier_generative_ai_policies_for_journals.html",
+  "size_bytes": 387368,
+  "sha256": "e7629f7ffac1c3a94d3c2ee196c0965de15c8d409b0fc845972ec752f3f8d5bf",
+  "http_status": 200,
+  "terms": "Elsevier website content; retained privately, excluded from public mirror"
+ }
+]

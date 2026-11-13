@@ -1,0 +1,4 @@
+csv,rows,numeric_cols,max_abs_diff,mean_abs_diff,cells_changed,cells_total
+distribution_descriptors.csv,10,12,2.5661,0.079524,109,120
+delay_propagation.csv,300,4,2.0129,0.164205,868,1200
+fixed_mean_summary.csv,10,15,81.5831,3.307737,120,150

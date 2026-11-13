@@ -1,0 +1,11 @@
+{
+  "seeds_note": "All seeds are explicit integers; no hash()-derived seeds.",
+  "M_saa": 3000,
+  "M_eval": 20000,
+  "cost_weights": {
+    "c_w": 1.0,
+    "c_i": 2.0,
+    "c_o": 2.0
+  },
+  "note": "Extension results only; NOT canonical frozen results."
+}

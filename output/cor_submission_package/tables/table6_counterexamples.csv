@@ -1,0 +1,4 @@
+case,C_uniform,C_full,regret_pct
+nonstationary_mean,691.5,544.7,26.9
+high_overtime_c_o8,622.9,597.9,4.2
+known_hetero_every5th,412.4,312.5,32.0

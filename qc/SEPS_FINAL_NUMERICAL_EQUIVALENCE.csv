@@ -1,0 +1,40 @@
+Claim,Manuscript value,Regenerated value,Difference,Tolerance,PASS/FAIL
+Fixed mean-based slot relative regret range at N=30 [fm_regret_rel_min],36.74%,36.74%,0,"abs<=1e-9*max(1,|x|)",PASS
+Fixed mean-based slot relative regret range at N=30 [fm_regret_rel_max],71.31%,71.31%,0,"abs<=1e-9*max(1,|x|)",PASS
+Fixed-slot scenario means N=20/30/50 [fm_rel_N20],25.53%,25.53%,0,"abs<=1e-9*max(1,|x|)",PASS
+Fixed-slot scenario means N=20/30/50 [fm_rel_N30],36.30%,36.30%,0,"abs<=1e-9*max(1,|x|)",PASS
+Fixed-slot scenario means N=20/30/50 [fm_rel_N50],49.34%,49.34%,0,"abs<=1e-9*max(1,|x|)",PASS
+Uniform SAA interval max/mean regret vs nonuniform benchmark [uni_regret_rel_max],1.44%,1.44%,0,"abs<=1e-9*max(1,|x|)",PASS
+Uniform SAA interval max/mean regret vs nonuniform benchmark [uni_mean_regret],1.16%,1.16%,0,"abs<=1e-9*max(1,|x|)",PASS
+Complexity frontier K=10 / K=4 residual capture (91-97% / 42-61%),results/ejor_extension/ejor_complexity_frontier.csv (public commit),results/ejor_extension/ejor_complexity_frontier.csv (regenerated),byte-identical,byte-identical,PASS
+Boundary vs interior concentration,results/ejor_extension/ejor_boundary_vs_interior.csv (public commit),results/ejor_extension/ejor_boundary_vs_interior.csv (regenerated),byte-identical,byte-identical,PASS
+Counterexample gaps (nonstationary/heterogeneous/overtime),results/ejor_extension/ejor_counterexamples.csv (public commit),results/ejor_extension/ejor_counterexamples.csv (regenerated),byte-identical,byte-identical,PASS
+Misspecification max excess [mis_max_excess],446.36,446.36,0,"abs<=1e-9*max(1,|x|)",PASS
+Under-design mean excess [mis_under],104.15,104.15,0,"abs<=1e-9*max(1,|x|)",PASS
+Over-design mean excess [mis_over],28.11,28.11,0,"abs<=1e-9*max(1,|x|)",PASS
+Under/over ratio (manuscript: about 3.7 times) [mis_ratio],3.7051,3.7051,0,"abs<=1e-9*max(1,|x|)",PASS
+"Under-design mean excess, stochastic assumed families only [mis_under_stoch]",32.56,32.56,0,"abs<=1e-9*max(1,|x|)",PASS
+Estimation regret n=250 median/Q90; n=50 Q90 [est_n250_regret_q50_med],1.14,1.14,0,"abs<=1e-9*max(1,|x|)",PASS
+Estimation regret n=250 median/Q90; n=50 Q90 [est_n250_regret_q90_med],5.18,5.18,0,"abs<=1e-9*max(1,|x|)",PASS
+Estimation regret n=250 median/Q90; n=50 Q90 [est_n50_regret_q90_med],14.11,14.11,0,"abs<=1e-9*max(1,|x|)",PASS
+Pareto a=2.5 Q90 regret at n=1000 [pareto_est_q90_n1000],29.76,29.76,0,"abs<=1e-9*max(1,|x|)",PASS
+Weight-grid max uniform regret [ws_uni_max],2.51%,2.51%,0,"abs<=1e-9*max(1,|x|)",PASS
+No-show robustness fractions [rob_tail_better_frac],50.00%,50.00%,0,"abs<=1e-9*max(1,|x|)",PASS
+No-show robustness fractions [rob_tail_frac_ns],33.33%,33.33%,0,"abs<=1e-9*max(1,|x|)",PASS
+Table 3 lognormal_cv15 fixed-slot wait / P(wait>30) [fm_wait_ln15],29.25,29.25,0,"abs<=1e-9*max(1,|x|)",PASS
+Table 3 lognormal_cv15 fixed-slot wait / P(wait>30) [fm_wait30_ln15],0.31,0.31,0,"abs<=1e-9*max(1,|x|)",PASS
+Table 3 lognormal_cv15 fixed vs SAA cost [fm_cost_ln15],1091.89,1091.89,0,"abs<=1e-9*max(1,|x|)",PASS
+Table 3 lognormal_cv15 fixed vs SAA cost [or_cost_ln15],745.86,745.86,0,"abs<=1e-9*max(1,|x|)",PASS
+Cascade length / cumulative delay [cascade_len_mid],15.00,15.00,0,"abs<=1e-9*max(1,|x|)",PASS
+Cascade length / cumulative delay [cascade_cum_mid],422.29,422.29,0,"abs<=1e-9*max(1,|x|)",PASS
+Nonuniform increment range [nonunif_inc_min],64.85%,64.85%,0,"abs<=1e-9*max(1,|x|)",PASS
+Nonuniform increment range [nonunif_inc_max],142.21%,142.21%,0,"abs<=1e-9*max(1,|x|)",PASS
+Fixed-slot absolute regret CV 0.25 / 2.0 [fm_abs_cv025],95.78,95.78,0,"abs<=1e-9*max(1,|x|)",PASS
+Fixed-slot absolute regret CV 0.25 / 2.0 [fm_abs_cv200],521.19,521.19,0,"abs<=1e-9*max(1,|x|)",PASS
+Figures 1-11 regenerated (PNG+PDF),11,11,0,exact count,PASS
+"Tables 1-6 regenerated, byte-identical to public commit",6,6,0,byte-identical,PASS
+SEPS manuscript markdown regenerated from canonical sources,manuscript/seps_manuscript.md (public commit),manuscript/seps_manuscript.md (regenerated),byte-identical,byte-identical,PASS
+Seed-affected exp01 output distribution_descriptors.csv,results/processed/distribution_descriptors.csv (public commit),results/processed/distribution_descriptors.csv (regenerated),byte-identical,byte-identical,PASS
+Seed-affected exp01 output delay_propagation.csv,results/processed/delay_propagation.csv (public commit),results/processed/delay_propagation.csv (regenerated),byte-identical,byte-identical,PASS
+Seed-affected exp01 output fixed_mean_summary.csv,results/processed/fixed_mean_summary.csv (public commit),results/processed/fixed_mean_summary.csv (regenerated),byte-identical,byte-identical,PASS
+All 27 shipped result CSVs regenerated,27 files,27 identical,0,byte-identical,PASS

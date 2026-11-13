@@ -1,0 +1,10 @@
+claim,source_file,derivation
+fm_regret_min/fm_regret_max,policy_performance.csv,regret_rel min/max over specs where policy==fixed_mean
+uni_regret_max,policy_performance.csv,max regret_rel where policy==opt_uniform
+fm_wait_ln15 / fm_wait30_ln15,policy_performance.csv,"E_W_mean / E_p_wait30 for spec lognormal_cv15, policy fixed_mean"
+pareto_fm_rel,policy_performance.csv,regret_rel for pareto_a25 fixed_mean
+mis_max,misspecification_matrix.csv,max excess_vs_correct
+est50/est250,estimation_uncertainty.csv,median regret_q50 at n_hist=250 and regret_q90 at n_hist=50/250
+cascade_len/cascade_cum,delay_cascade.csv,cascade_len / cum_extra_wait at shock_pos=15
+rob_frac,operational_robustness.csv,fraction of conditions where E_cost(tail_aware) < E_cost(fixed_mean)
+cv_thresh,decision_map.csv,max CV at N=30 with regret_fixed_rel < 0.02

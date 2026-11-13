@@ -1,0 +1,7 @@
+## Highlights
+
+- Fixed mean-based slots incur 36.7%–71.3% relative regret at $N=30$
+- A single optimized uniform interval caps regret at 1.4% vs oracle
+- Tail shape matters beyond the mean in finite-session delay propagation
+- Wrong-family intervals can cost more than no optimization at all
+- Light-tailed designs stabilize by ~250 observations; Pareto $\alpha=2.5$ does not
